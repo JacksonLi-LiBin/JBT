@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">JBT</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="con_des">item image</string>
+    <string name="main_bg_img_des">main page background image</string>
+    <string name="dialog_title">שורת</string>
+    <string name="dialog_sure">זה</string>
+    <string name="dialog_cancel">לבטל</string>
+    <string name="net_unusable">הרשת אינה זמינה, אנא בדוק את הרשת שלך!</string>
+    <string name="request_failed">בקשה נכשלה!</string>
+    <string name="ope_time_out">הפעולה הוקצבה!</string>
+    <string name="expand_icon">expand_icon</string>
+    <string name="expand_icon_hidden">expand_icon_hidden</string>
+    <!-- Login page -->
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login_title">כניסה לאזור האישי</string>
+    <string name="login_id_hint">מספר תעודת זהות</string>
+    <string name="login_name_hint">שם פרטי ושם משפחה</string>
+    <string name="login_masual_hint">מספר מסלול/מחזור</string>
+    <string name="login_pwd_hint">סיסמה</string>
+    <string name="login_btn_text">כניסה</string>
+    <string name="login_default_pwd">הסיסמה הראשונית היא 000000!</string>
+    <string name="login_failed">סיסמא משתמש אינה נכונה!</string>
+    <string name="login_unexist_user">משתמש לא קיים!</string>
+    <string name="login_user_offline">המשתמש מחובר!</string>
+    <string name="login_user_unusable">המשתמש לא יכול להשתמש!</string>
+    <!-- Main menu page -->
+    <string name="logout_message">בין אם כדי לצאת</string>
+    <string name="schedule">תוכנית לימודים</string>
+    <string name="grades">ציונים שלי</string>
+    <string name="techtalk">Techtalk</string>
+    <string name="job">לוח דרושים</string>
+    <string name="recommend_friend">חבר מביא חבר</string>
+    <string name="contact_us">צור קשר</string>
+    <string name="change_password">החלפת סיסמא</string>
+    <string name="exit">יציאה</string>
+    <!-- change password -->
+    <string name="change_pwd_title">החלף סיסמא</string>
+    <string name="old_pwd_hint">סיסמא ישנה</string>
+    <string name="new_pwd_hint">סיסמא חדשה</string>
+    <string name="confirm_pwd_hint">הקלד שנית סיסמא חדשה</string>
+    <string name="change_pwd_btn">שלח</string>
+    <string name="pwd_length_noti">יש להקליד בין 8-12 תווים, ניתן להשתמש באותיות ומספרים!</string>
+    <string name="different_new_pwd">הסיסמה החדשה ולאשר את הסיסמה היא עולה בקנה אחד!</string>
+    <string name="change_success_text">סיסמתך שונתה בהצלחה!</string>
+    <string name="change_failed_text">שינוי סיסמא נכשלה!</string>
+    <!-- contact us -->
+    <string name="contac_email_hint">כתובת מייל</string>
+    <string name="contact_phone_hint">מספר טלפון</string>
+    <string name="contact_description_hint">פירוט הפניה</string>
+    <string name="contact_inquiry_subject_hint">נושא הפניה</string>
+    <string name="contact_remote_check_fail">מידע משתמש אינו נכון!</string>
+    <string name="contact_add_inquiry_success">שלח משוב הצלחה!</string>
+    <string name="contact_add_inquiry_failed">שלח משוב נכשל!</string>
+    <!-- course sylibus -->
+    <string name="cs_no_training_schedule">אין לך כל לוח זמנים בהתעמלות!</string>
+    <string name="cs_title">תוכנית לימודים</string>
+    <string name="cs_class_num">מספר מפגש:</string>
+    <string name="cs_teacher_name">שם המרצה:</string>
+    <string name="cs_lesson_topic">מספר כיתה:</string>
+    <string name="cs_classroom_num">נושא השיעור:</string>
+
+</resources>

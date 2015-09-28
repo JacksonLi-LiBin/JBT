@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true"><shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <padding android:bottom="@dimen/login_item_padding" android:left="@dimen/login_item_padding" android:right="@dimen/login_item_padding" android:top="@dimen/login_item_padding" />
+
+            <stroke android:color="@color/white_text" />
+
+            <solid android:color="@color/red_dark" />
+        </shape></item>
+    <item android:state_pressed="false"><shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <padding android:bottom="@dimen/login_item_padding" android:left="@dimen/login_item_padding" android:right="@dimen/login_item_padding" android:top="@dimen/login_item_padding" />
+
+            <stroke android:color="@color/white_text" />
+
+            <solid android:color="@color/red_light" />
+        </shape></item>
+
+</selector>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="contact_inquiry_subjects">
+        <item>נושא הפניה>0</item>
+        <item>מדעי מחשב>1</item>
+        <item>מסד הנתונים>2</item>
+        <item>רשת בטוחה>3</item>
+        <item>עיצוב תוכנה>4</item>
+        <item>מדעי מחשב>5</item>
+        <item>מסד הנתונים>6</item>
+    </string-array>
+
+</resources>
