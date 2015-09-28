@@ -48,7 +48,8 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 	private RelativeLayout stu_num_layout;
 	private ScrollView login_items_layout;
 	private EditText stu_num, stu_pwd;
-	private TextView stu_num_title, stu_name, course_num_title, stu_pwd_title;
+	private TextView stu_num_title, stu_name, course_num_title, stu_pwd_title,
+			forgot_pwd;
 	private Spinner course_num;
 	private Button user_login_btn;
 	List<String> masualList = null;
@@ -89,6 +90,8 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 		stu_pwd_title = (TextView) findViewById(R.id.stu_pwd_title);
 		user_login_btn = (Button) findViewById(R.id.user_login_btn);
 		user_login_btn.setOnClickListener(this);
+		forgot_pwd = (TextView) findViewById(R.id.forgot_pwd);
+		forgot_pwd.setOnClickListener(this);
 
 		// display or hide hint text
 		stu_num.addTextChangedListener(new TextWatcher() {
@@ -639,7 +642,11 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
-
+		case R.id.forgot_pwd:
+			Intent intent = new Intent(LoginActivity.this,
+					ForgotPasswordActivity.class);
+			startActivity(intent);
+			break;
 		default:
 			break;
 		}

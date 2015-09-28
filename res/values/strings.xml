@@ -27,6 +27,10 @@
     <string name="login_unexist_user">משתמש לא קיים!</string>
     <string name="login_user_offline">המשתמש מחובר!</string>
     <string name="login_user_unusable">המשתמש לא יכול להשתמש!</string>
+    <string name="mandatory_text">כל השדות הם שדות חובה</string>
+    <string name="forgot_pwd">שכחת סיסמה?</string>
+    <!-- Forgot password -->
+    <string name="forgot_pwd_title">שכחת סיסמה</string>
     <!-- Main menu page -->
     <string name="logout_message">בין אם כדי לצאת</string>
     <string name="schedule">תוכנית לימודים</string>
