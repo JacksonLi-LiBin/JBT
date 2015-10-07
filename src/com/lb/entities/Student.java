@@ -17,11 +17,16 @@ public class Student implements Serializable {
 
 	public Student() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Student(String stuId, String firstName, String lastName,
-			String email, List<Course> courseList, List<Branch> branchList) {
+	public Student(String stuId, List<Course> courseList) {
+		super();
+		this.stuId = stuId;
+		this.courseList = courseList;
+	}
+
+	public Student(String stuId, String firstName, String lastName, String email, List<Course> courseList,
+			List<Branch> branchList) {
 		super();
 		this.stuId = stuId;
 		this.firstName = firstName;
@@ -81,9 +86,8 @@ public class Student implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[stuId=" + stuId + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", email=" + email + ", courseList=" + courseList
-				+ ", branchList=" + branchList + "]";
+		return "[stuId=" + stuId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", courseList=" + courseList + ", branchList=" + branchList + "]";
 	}
 
 }

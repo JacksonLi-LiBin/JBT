@@ -31,6 +31,9 @@
     <string name="forgot_pwd">שכחת סיסמה?</string>
     <!-- Forgot password -->
     <string name="forgot_pwd_title">שכחת סיסמה</string>
+    <string name="no_email_text">לא הוסיף תיבת דואר!</string>
+    <string name="send_email_failed">אי הגשת המידע!</string>
+    <string name="send_email_succeed">היכנס דואר כדי לאחזר את הסיסמה שלך!</string>
     <!-- Main menu page -->
     <string name="logout_message">בין אם כדי לצאת</string>
     <string name="schedule">תוכנית לימודים</string>
@@ -66,5 +69,11 @@
     <string name="cs_teacher_name">שם המרצה:</string>
     <string name="cs_lesson_topic">מספר כיתה:</string>
     <string name="cs_classroom_num">נושא השיעור:</string>
+    <!-- recommend friend -->
+    <string name="recommend_friend_title">חבר מביא חבר</string>
+    <string name="recommend_friend_name_hint">שם החבר</string>
+    <string name="recommend_friend_phone_hint">טלפון</string>
+    <string name="recommend_friend_email_hint">כתובת מייל</string>
+    <string name="recommend_friend_interest_hint">תחום התעניינות</string>
 
 </resources>

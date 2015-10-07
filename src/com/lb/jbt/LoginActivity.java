@@ -42,23 +42,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity implements View.OnClickListener,
-		View.OnTouchListener {
+public class LoginActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
 	private static final String TAG = "LoginActivity";
 	private RelativeLayout stu_num_layout;
 	private ScrollView login_items_layout;
 	private EditText stu_num, stu_pwd;
-	private TextView stu_num_title, stu_name, course_num_title, stu_pwd_title,
-			forgot_pwd;
+	private TextView stu_num_title, stu_name, course_num_title, stu_pwd_title, forgot_pwd;
 	private Spinner course_num;
 	private Button user_login_btn;
-	List<String> masualList = null;
+	private List<String> masualList = null;
 	private MasualAdapter masualAdapter = null;
 	private SharedPreferences spf = null;
 	private SharedPreferences.Editor editor = null;
 
-	private String storedUserId, storedToken, selectedMasualNum,
-			selectedCourseName, selectedBranch;
+	private String storedUserId, storedToken, selectedMasualNum, selectedCourseName, selectedBranch;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +93,8 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 		// display or hide hint text
 		stu_num.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				stu_num_title.setTextColor(getResources().getColor(
-						R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				stu_num_title.setTextColor(getResources().getColor(R.color.hint_text));
 				if (s.toString().length() == 0) {
 					stu_num_title.setVisibility(View.VISIBLE);
 				} else {
@@ -108,8 +103,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
 			}
 
@@ -128,10 +122,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 							new LoginAsync().execute(0);
 						} else {
 							// network is unavailable
-							Toast.makeText(
-									LoginActivity.this,
-									getResources().getString(
-											R.string.net_unusable),
+							Toast.makeText(LoginActivity.this, getResources().getString(R.string.net_unusable),
 									Toast.LENGTH_SHORT).show();
 						}
 					}
@@ -140,10 +131,8 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 		});
 		stu_pwd.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				stu_pwd_title.setTextColor(getResources().getColor(
-						R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				stu_pwd_title.setTextColor(getResources().getColor(R.color.hint_text));
 				if (s.toString().trim().length() == 0) {
 					stu_pwd_title.setVisibility(View.VISIBLE);
 				} else {
@@ -152,8 +141,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
 			}
 
@@ -162,37 +150,32 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 
 			}
 		});
-		course_num
-				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+		course_num.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-					@Override
-					public void onItemSelected(AdapterView<?> parent,
-							View view, int position, long id) {
-						LinearLayout ll = (LinearLayout) view;
-						if (ll != null) {
-							TextView masualNumTV = (TextView) ll.getChildAt(0);
-							TextView courseNameTV = (TextView) ll.getChildAt(1);
-							selectedMasualNum = masualNumTV.getText()
-									.toString();
-							selectedCourseName = courseNameTV.getText()
-									.toString();
-						}
-					}
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				LinearLayout ll = (LinearLayout) view;
+				if (ll != null) {
+					TextView masualNumTV = (TextView) ll.getChildAt(0);
+					TextView courseNameTV = (TextView) ll.getChildAt(1);
+					selectedMasualNum = masualNumTV.getText().toString();
+					selectedCourseName = courseNameTV.getText().toString();
+				}
+			}
 
-					@Override
-					public void onNothingSelected(AdapterView<?> parent) {
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
 
-					}
-				});
+			}
+		});
 		// user login out abnormal
 		if (storedToken != null && !storedToken.equals("")) {
 			if (MobileNetStatus.isNetUsable) {
 				new LoginAsync().execute(2);
 			} else {
 				// network is unavailable
-				Toast.makeText(LoginActivity.this,
-						getResources().getString(R.string.net_unusable),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(LoginActivity.this, getResources().getString(R.string.net_unusable), Toast.LENGTH_SHORT)
+						.show();
 			}
 		}
 		// set user id when app start
@@ -222,10 +205,8 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 					// .addPathSegment("CommonMethods")
 					// .addPathSegment("getUserInfos")
 					// .addQueryParameter("userId", passContent).build();
-					HttpUrl url = HttpUrl.parse(ReadProperties.read("url",
-							"getuserinfo")
-							+ "?userId="
-							+ stu_num.getText().toString());
+					HttpUrl url = HttpUrl.parse(
+							ReadProperties.read("url", "getuserinfo") + "?userId=" + stu_num.getText().toString());
 					Request request = new Request.Builder().url(url).build();
 					Response response = okHttpClient.newCall(request).execute();
 					if (response.isSuccessful()) {
@@ -241,88 +222,48 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 				try {
 					// judge whether has user logon
 					// if (storedToken == null || storedToken.equals("")) {}
-					HttpUrl urlCheckLogon = HttpUrl.parse(ReadProperties.read(
-							"url", "jackson_ad_login_cp")
-							+ "CommonMethods/judgeWeatherUserLogin?userId="
-							+ stu_num.getText().toString()
-							+ "&password="
-							+ stu_pwd.getText().toString()
-							+ "&token="
-							+ storedToken);
-					Request requestCheckLogon = new Request.Builder().url(
-							urlCheckLogon).build();
-					Response responseCheckLogon = okHttpClient.newCall(
-							requestCheckLogon).execute();
+					HttpUrl urlCheckLogon = HttpUrl.parse(ReadProperties.read("url", "jackson_ad_login_cp")
+							+ "CommonMethods/judgeWeatherUserLogin?userId=" + stu_num.getText().toString()
+							+ "&password=" + stu_pwd.getText().toString() + "&token=" + storedToken);
+					Request requestCheckLogon = new Request.Builder().url(urlCheckLogon).build();
+					Response responseCheckLogon = okHttpClient.newCall(requestCheckLogon).execute();
 					if (responseCheckLogon.isSuccessful()) {
-						String whetherLogon = responseCheckLogon.body()
-								.string();
+						String whetherLogon = responseCheckLogon.body().string();
 						if (whetherLogon.equals("false")) {
 							// new user or old user 0 new 1 old false user
 							// does not exist
-							HttpUrl urlCheckFlag = HttpUrl.parse(ReadProperties
-									.read("url", "jackson_ad_login_cp")
-									+ "CommonMethods/getUserFlag?userId="
-									+ stu_num.getText().toString());
-							Request requestCheckFlag = new Request.Builder()
-									.url(urlCheckFlag).build();
-							Response responseCheckFlag = okHttpClient.newCall(
-									requestCheckFlag).execute();
+							HttpUrl urlCheckFlag = HttpUrl.parse(ReadProperties.read("url", "jackson_ad_login_cp")
+									+ "CommonMethods/getUserFlag?userId=" + stu_num.getText().toString());
+							Request requestCheckFlag = new Request.Builder().url(urlCheckFlag).build();
+							Response responseCheckFlag = okHttpClient.newCall(requestCheckFlag).execute();
 							if (responseCheckFlag.isSuccessful()) {
-								String getFlag = responseCheckFlag.body()
-										.string();
+								String getFlag = responseCheckFlag.body().string();
 								if (getFlag.equals("false")) {
 									return "{type:1}";
 								} else {
 									if (getFlag.equals("0")) {
-										if (!stu_pwd.getText().toString()
-												.equals("000000")) {
+										if (!stu_pwd.getText().toString().equals("000000")) {
 											return "{type:2}";
 										}
 									}
 									// login
-									HttpUrl urlLogin = HttpUrl
-											.parse(ReadProperties.read("url",
-													"jackson_ad_login_cp")
-													+ "UserLogin/login?userId="
-													+ stu_num.getText()
-															.toString()
-													+ "&password="
-													+ stu_pwd.getText()
-															.toString()
-													+ "&registionId=000000&passToken="
-													+ (storedToken == null ? ""
-															: storedToken)
-													+ "&flag=" + getFlag);
-									Request requestLogin = new Request.Builder()
-											.url(urlLogin).build();
-									Response responseLogin = okHttpClient
-											.newCall(requestLogin).execute();
+									HttpUrl urlLogin = HttpUrl.parse(ReadProperties.read("url", "jackson_ad_login_cp")
+											+ "UserLogin/login?userId=" + stu_num.getText().toString() + "&password="
+											+ stu_pwd.getText().toString() + "&registionId=000000&passToken="
+											+ (storedToken == null ? "" : storedToken) + "&flag=" + getFlag);
+									Request requestLogin = new Request.Builder().url(urlLogin).build();
+									Response responseLogin = okHttpClient.newCall(requestLogin).execute();
 									if (responseLogin.isSuccessful()) {
-										String loginReturn = responseLogin
-												.body().string();
+										String loginReturn = responseLogin.body().string();
 										if (loginReturn.length() > 0) {
-											editor.putString("userId", stu_num
-													.getText().toString());
-											editor.putString("fullName",
-													stu_name.getText()
-															.toString());
-											editor.putString(
-													"userToken",
-													loginReturn
-															.substring(
-																	0,
-																	loginReturn
-																			.length() - 1));
-											editor.putString("branch",
-													selectedBranch);
-											editor.putString("coursename",
-													selectedCourseName);
-											editor.putString("coursenum",
-													selectedMasualNum
-															.split("/")[0]);
-											editor.putString("cyclenum",
-													selectedMasualNum
-															.split("/")[1]);
+											editor.putString("userId", stu_num.getText().toString());
+											editor.putString("fullName", stu_name.getText().toString());
+											editor.putString("userToken",
+													loginReturn.substring(0, loginReturn.length() - 1));
+											editor.putString("branch", selectedBranch);
+											editor.putString("coursename", selectedCourseName);
+											editor.putString("coursenum", selectedMasualNum.split("/")[0]);
+											editor.putString("cyclenum", selectedMasualNum.split("/")[1]);
 											editor.commit();
 											return "{type:4}";
 										} else {
@@ -344,14 +285,10 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 			case 2:
 				try {
 					// user exit abnormal and login automatically when start app
-					HttpUrl urlCheckToken = HttpUrl.parse(ReadProperties.read(
-							"url", "jackson_ad_login_cp")
-							+ "CommonMethods/judgeWeatherUserLogin?userId="
-							+ stu_num.getText().toString());
-					Request requestCheckToken = new Request.Builder().url(
-							urlCheckToken).build();
-					Response responseCheckToken = okHttpClient.newCall(
-							requestCheckToken).execute();
+					HttpUrl urlCheckToken = HttpUrl.parse(ReadProperties.read("url", "jackson_ad_login_cp")
+							+ "CommonMethods/judgeWeatherUserLogin?userId=" + stu_num.getText().toString());
+					Request requestCheckToken = new Request.Builder().url(urlCheckToken).build();
+					Response responseCheckToken = okHttpClient.newCall(requestCheckToken).execute();
 					if (responseCheckToken.isSuccessful()) {
 						String checkResult = responseCheckToken.body().string();
 						if (checkResult.equals("true")) {
@@ -382,10 +319,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 						String getUser = getInfo.getString("d");
 						if (getUser.equals("\"Empty\"")) {
 							// user is unavailable
-							Toast.makeText(
-									LoginActivity.this,
-									getResources().getString(
-											R.string.login_user_unusable),
+							Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_user_unusable),
 									Toast.LENGTH_SHORT).show();
 							stu_name.setText("");
 							masualList.clear();
@@ -401,30 +335,24 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 							JSONArray courseArray = new JSONArray(courseStr);
 							List<Course> courseList = new ArrayList<Course>();
 							for (int i = 0; i < courseArray.length(); i++) {
-								JSONObject courseObj = courseArray
-										.getJSONObject(i);
-								Course course = new Course(
-										courseObj.getString("CourseNumber"),
-										courseObj.getString("CourseName"),
-										courseObj.getString("CycleNumber"));
+								JSONObject courseObj = courseArray.getJSONObject(i);
+								Course course = new Course(courseObj.getString("CourseNumber"),
+										courseObj.getString("CourseName"), courseObj.getString("CycleNumber"));
 								courseList.add(course);
 							}
 							String branchStr = userInfo.getString("Branch");
 							JSONArray branchArray = new JSONArray(branchStr);
 							List<Branch> branchList = new ArrayList<Branch>();
 							for (int i = 0; i < branchArray.length(); i++) {
-								JSONObject branchObj = branchArray
-										.getJSONObject(i);
-								Branch branch = new Branch(
-										branchObj.getString("Branch"));
+								JSONObject branchObj = branchArray.getJSONObject(i);
+								Branch branch = new Branch(branchObj.getString("Branch"));
 								branchList.add(branch);
 							}
-							Student student = new Student(stuId, firstName,
-									lastName, email, courseList, branchList);
-							selectedBranch = branchList.get(0) == null ? ""
-									: branchList.get(0).getBranchId();
-							stu_name.setText(student.getFirstName() + " "
-									+ student.getLastName());
+							Student student = new Student(stuId, firstName, lastName, email, courseList, branchList);
+							stu_name.setText(student.getFirstName() + " " + student.getLastName());
+							if (branchList.size() > 0) {
+								selectedBranch = branchList.get(0) == null ? "" : branchList.get(0).getBranchId();
+							}
 							if (student.getCourseList().size() > 0) {
 								course_num_title.setVisibility(View.GONE);
 							} else {
@@ -432,8 +360,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 							}
 							masualList.clear();
 							for (Course course : student.getCourseList()) {
-								String masualNum = course.getCourseNumber()
-										+ "/" + course.getCycleNumber() + "-->"
+								String masualNum = course.getCourseNumber() + "/" + course.getCycleNumber() + "-->"
 										+ course.getCourseName();
 								masualList.add(masualNum);
 							}
@@ -444,8 +371,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 					}
 				} else {
 					// request failed
-					Toast.makeText(LoginActivity.this,
-							getResources().getString(R.string.request_failed),
+					Toast.makeText(LoginActivity.this, getResources().getString(R.string.request_failed),
 							Toast.LENGTH_SHORT).show();
 				}
 				break;
@@ -455,37 +381,26 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 					Dialog dialog = null;
 					try {
 						JSONObject returnValue = new JSONObject(result);
-						Integer returnType = Integer.parseInt(returnValue
-								.getString("type"));
+						Integer returnType = Integer.parseInt(returnValue.getString("type"));
 						switch (returnType) {
 						// login failed
 						case 0:
-							Toast.makeText(
-									LoginActivity.this,
-									getResources().getString(
-											R.string.login_user_offline),
+							Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_user_offline),
 									Toast.LENGTH_SHORT).show();
 							break;
 						case 1:
-							Toast.makeText(
-									LoginActivity.this,
-									getResources().getString(
-											R.string.login_unexist_user),
+							Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_unexist_user),
 									Toast.LENGTH_SHORT).show();
 							break;
 						case 2:
-							Toast.makeText(
-									LoginActivity.this,
-									getResources().getString(
-											R.string.login_default_pwd),
+							Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_default_pwd),
 									Toast.LENGTH_SHORT).show();
 							break;
 						case 3:
 							// password wrong
-							CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(
-									LoginActivity.this, false);
-							builder.setDialogText(getResources().getString(
-									R.string.login_failed));
+							CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(LoginActivity.this,
+									false);
+							builder.setDialogText(getResources().getString(R.string.login_failed));
 							dialog = builder.create();
 							dialog.setCancelable(false);
 							dialog.show();
@@ -493,8 +408,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 						case 4:
 						case 5:
 							// login successfully
-							Intent intent = new Intent(LoginActivity.this,
-									MainMenuActivity.class);
+							Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
 							startActivity(intent);
 							LoginActivity.this.finish();
 							break;
@@ -509,8 +423,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 			case 2:
 				try {
 					JSONObject returnValue = new JSONObject(result);
-					Integer returnType = Integer.parseInt(returnValue
-							.getString("type"));
+					Integer returnType = Integer.parseInt(returnValue.getString("type"));
 					switch (returnType) {
 					// token unusable
 					case 0:
@@ -522,8 +435,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 						break;
 					// token usable
 					case 1:
-						Intent intent = new Intent(LoginActivity.this,
-								MainMenuActivity.class);
+						Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
 						startActivity(intent);
 						LoginActivity.this.finish();
 						break;
@@ -572,12 +484,10 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 			if (convertView != null) {
 				view = convertView;
 			} else {
-				view = LayoutInflater.from(mContext).inflate(
-						R.layout.masual_list, null);
+				view = LayoutInflater.from(mContext).inflate(R.layout.masual_list, null);
 			}
 			TextView masualNum = (TextView) view.findViewById(R.id.masualNum);
-			TextView course_name = (TextView) view
-					.findViewById(R.id.course_name);
+			TextView course_name = (TextView) view.findViewById(R.id.course_name);
 			String courseInfo = masualList.get(position);
 			String masualNumStr = courseInfo.split("-->")[0];
 			String courseNameStr = courseInfo.split("-->")[1];
@@ -602,34 +512,26 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 		case R.id.user_login_btn:
 			if (MobileNetStatus.isNetUsable) {
 				int ret = 1;
-				stu_num_title.setTextColor(getResources().getColor(
-						R.color.hint_text));
-				stu_name.setHintTextColor(getResources().getColor(
-						R.color.hint_text));
-				course_num_title.setTextColor(getResources().getColor(
-						R.color.hint_text));
-				stu_pwd_title.setTextColor(getResources().getColor(
-						R.color.hint_text));
+				stu_num_title.setTextColor(getResources().getColor(R.color.hint_text));
+				stu_name.setHintTextColor(getResources().getColor(R.color.hint_text));
+				course_num_title.setTextColor(getResources().getColor(R.color.hint_text));
+				stu_pwd_title.setTextColor(getResources().getColor(R.color.hint_text));
 				// validate user input
 				if (stu_num.getText().toString().length() <= 0) {
 					ret = -1;
-					stu_num_title.setTextColor(getResources().getColor(
-							R.color.red_light));
+					stu_num_title.setTextColor(getResources().getColor(R.color.red_light));
 					return;
 				} else if (stu_name.getText().toString().length() <= 0) {
 					ret = -1;
-					stu_name.setHintTextColor(getResources().getColor(
-							R.color.red_light));
+					stu_name.setHintTextColor(getResources().getColor(R.color.red_light));
 					return;
-				} else if (course_num.getSelectedItem().toString().length() <= 0) {
+				} else if (masualList.size() == 0 || course_num.getSelectedItem().toString().length() <= 0) {
 					ret = -1;
-					course_num_title.setTextColor(getResources().getColor(
-							R.color.red_light));
+					course_num_title.setTextColor(getResources().getColor(R.color.red_light));
 					return;
 				} else if (stu_pwd.getText().toString().length() <= 0) {
 					ret = -1;
-					stu_pwd_title.setTextColor(getResources().getColor(
-							R.color.red_light));
+					stu_pwd_title.setTextColor(getResources().getColor(R.color.red_light));
 					return;
 				}
 				if (ret > 0) {
@@ -637,14 +539,12 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 				}
 			} else {
 				// network is unavailable
-				Toast.makeText(LoginActivity.this,
-						getResources().getString(R.string.net_unusable),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(LoginActivity.this, getResources().getString(R.string.net_unusable), Toast.LENGTH_SHORT)
+						.show();
 			}
 			break;
 		case R.id.forgot_pwd:
-			Intent intent = new Intent(LoginActivity.this,
-					ForgotPasswordActivity.class);
+			Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
 			startActivity(intent);
 			break;
 		default:
@@ -655,8 +555,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 	// hide soft input
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		InputMethodManager imm = (InputMethodManager) LoginActivity.this
-				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		InputMethodManager imm = (InputMethodManager) LoginActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(stu_num.getWindowToken(), 0);
 		if (stu_num.isFocused()) {
 			stu_num.clearFocus();
@@ -669,8 +568,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		InputMethodManager imm = (InputMethodManager) LoginActivity.this
-				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		InputMethodManager imm = (InputMethodManager) LoginActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(stu_num.getWindowToken(), 0);
 		if (stu_num.isFocused()) {
 			stu_num.clearFocus();

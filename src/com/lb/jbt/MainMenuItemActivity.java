@@ -3,6 +3,7 @@ package com.lb.jbt;
 import com.lb.fragments.ChangePasswordFragment;
 import com.lb.fragments.ContactUsFragment;
 import com.lb.fragments.CourseSylibusFragment;
+import com.lb.fragments.RecommendFriendFragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -42,8 +43,7 @@ public class MainMenuItemActivity extends Activity {
 		switch (itemType) {
 		case 0:
 			fragment = new CourseSylibusFragment();
-			transaction.replace(R.id.menuItemFragment, fragment,
-					"coursesylibus");
+			transaction.replace(R.id.menuItemFragment, fragment, "coursesylibus");
 			transaction.commit();
 			break;
 		case 1:
@@ -56,7 +56,11 @@ public class MainMenuItemActivity extends Activity {
 
 			break;
 		case 4:
-
+			// recommend friend
+			fragment = new RecommendFriendFragment();
+			// fragment.setArguments(passBundle);
+			transaction.replace(R.id.menuItemFragment, fragment, "recommendfriend");
+			transaction.commit();
 			break;
 		case 5:
 			// contact us
