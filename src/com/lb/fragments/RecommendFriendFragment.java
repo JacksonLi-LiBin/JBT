@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class RecommendFriendFragment extends Fragment {
@@ -18,6 +19,7 @@ public class RecommendFriendFragment extends Fragment {
 	private EditText friend_name, friend_phone, friend_email, friend_interest;
 	private TextView friend_name_hint, friend_phone_hint, friend_email_hint, friend_interest_hint;
 	private Button recommend_friend_btn;
+	private LinearLayout choose_contact_type_btn;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class RecommendFriendFragment extends Fragment {
 		friend_email_hint = (TextView) view.findViewById(R.id.friend_email_hint);
 		friend_interest_hint = (TextView) view.findViewById(R.id.friend_interest_hint);
 		recommend_friend_btn = (Button) view.findViewById(R.id.recommend_friend_btn);
+		choose_contact_type_btn = (LinearLayout) view.findViewById(R.id.choose_contact_type_btn);
 		return view;
 	}
 

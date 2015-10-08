@@ -210,7 +210,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/login_item_height"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/login_items_padding"
                 android:paddingRight="@dimen/login_items_padding" >
@@ -224,6 +224,65 @@
                     android:text="@string/change_pwd_btn"
                     android:textColor="@color/white_text"
                     android:textSize="@dimen/title_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/login_items_padding"
+                android:paddingRight="@dimen/login_items_padding" >
+
+                <LinearLayout
+                    android:id="@+id/choose_contact_type_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/deep_grew_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/login_btn_height"
+                        android:layout_weight="8"
+                        android:background="@drawable/choose_contact_btn_style"
+                        android:gravity="center"
+                        android:text="@string/recommend_contacts_type"
+                        android:textColor="@color/white_text"
+                        android:textSize="@dimen/contacts_text_size" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:contentDescription="@string/main_bg_img_des"
+                        android:src="@drawable/contacts" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_item_height"
+                        android:background="@drawable/contacts_items_border"
+                        android:text="@string/recommend_local_contact" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_item_height"
+                        android:background="@drawable/contacts_items_border"
+                        android:text="@string/recommend_google_contact" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_item_height"
+                        android:background="@color/white_bg"
+                        android:text="@string/recommend_outlook_contact" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

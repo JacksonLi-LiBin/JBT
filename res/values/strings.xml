@@ -75,5 +75,9 @@
     <string name="recommend_friend_phone_hint">טלפון</string>
     <string name="recommend_friend_email_hint">כתובת מייל</string>
     <string name="recommend_friend_interest_hint">תחום התעניינות</string>
+    <string name="recommend_contacts_type">לבחירת חבר מתוך רשימת אנשי הקשר</string>
+    <string name="recommend_local_contact">אנשי קשר מהמכשיר</string>
+    <string name="recommend_google_contact">Google</string>
+    <string name="recommend_outlook_contact">Outlook</string>
 
 </resources>
