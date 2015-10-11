@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 public class MainMenuItemActivity extends Activity {
+	private final Integer REQUEST_CONTACTS_CODE = 1;
 	private FragmentManager manager;
 	private FragmentTransaction transaction;
 
@@ -104,4 +105,8 @@ public class MainMenuItemActivity extends Activity {
 		return false;
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 }
