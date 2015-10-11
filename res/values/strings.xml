@@ -79,5 +79,7 @@
     <string name="recommend_local_contact">אנשי קשר מהמכשיר</string>
     <string name="recommend_google_contact">Google</string>
     <string name="recommend_outlook_contact">Outlook</string>
+    <string name="emial">תיבת דואר</string>
+    <string name="phone">מספרי טלפון</string>
 
 </resources>
