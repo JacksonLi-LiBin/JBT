@@ -12,19 +12,21 @@ import android.os.Bundle;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-public class ContactDetailsActivity extends Activity implements View.OnClickListener {
+public class ContactDetailsActivity extends Activity implements
+		View.OnClickListener {
 	private final Integer REQUEST_CONTACTS_DETAILS_CODE = 2;
 	private ImageView right_menu_btn;
 	private ExpandableListView contact_details_lv;
 	// email and phone
 	private List<String> detailsTitles = null;
 	// email contents and phone contents
-	private List<Object> detailsContents = null;
+	private List<List<String>> detailsContents = null;
 	private ContactDetailExpandableAdapter adapter = null;
 	// passed friend
 	private Friend passFriend = null;
@@ -36,17 +38,19 @@ public class ContactDetailsActivity extends Activity implements View.OnClickList
 		detailsTitles = new ArrayList<String>();
 		detailsTitles.add(getResources().getString(R.string.phone));
 		detailsTitles.add(getResources().getString(R.string.emial));
-		detailsContents = new ArrayList<Object>();
+		detailsContents = new ArrayList<List<String>>();
 		Intent intent = getIntent();
 		Bundle bundle = intent.getBundleExtra("friendBundle");
 		passFriend = (Friend) bundle.get("passFriend");
 		detailsContents.add(passFriend.getPhones());
 		detailsContents.add(passFriend.getEmails());
-		System.out.println(detailsTitles.toString() + "---------" + detailsContents.toString());
+		System.out.println(detailsTitles.toString() + "---------"
+				+ detailsContents.toString());
 		right_menu_btn = (ImageView) findViewById(R.id.right_menu_btn);
 		contact_details_lv = (ExpandableListView) findViewById(R.id.contact_details_lv);
 		right_menu_btn.setOnClickListener(this);
-		adapter = new ContactDetailExpandableAdapter(ContactDetailsActivity.this, detailsTitles, detailsContents);
+		adapter = new ContactDetailExpandableAdapter(
+				ContactDetailsActivity.this, detailsTitles, detailsContents);
 		contact_details_lv.setAdapter(adapter);
 	}
 
@@ -62,12 +66,14 @@ public class ContactDetailsActivity extends Activity implements View.OnClickList
 		}
 	}
 
-	private class ContactDetailExpandableAdapter extends BaseExpandableListAdapter {
+	private class ContactDetailExpandableAdapter extends
+			BaseExpandableListAdapter {
 		private Context context;
 		private List<String> titles;
-		private List<Object> contents;
+		private List<List<String>> contents;
 
-		public ContactDetailExpandableAdapter(Context context, List<String> titles, List<Object> contents) {
+		public ContactDetailExpandableAdapter(Context context,
+				List<String> titles, List<List<String>> contents) {
 			super();
 			this.context = context;
 			this.titles = titles;
@@ -76,46 +82,57 @@ public class ContactDetailsActivity extends Activity implements View.OnClickList
 
 		@Override
 		public Object getChild(int groupPosition, int childPosition) {
-			return null;
+			return contents.get(groupPosition).get(childPosition);
 		}
 
 		@Override
 		public long getChildId(int groupPosition, int childPosition) {
-			return 0;
+			return childPosition;
 		}
 
 		@Override
-		public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
-				ViewGroup parent) {
-			return null;
+		public View getChildView(int groupPosition, int childPosition,
+				boolean isLastChild, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				convertView = LayoutInflater.from(context).inflate(
+						R.layout.contact_details_contents, null);
+			}
+			TextView content_item = (TextView) convertView
+					.findViewById(R.id.content_item);
+			content_item
+					.setText(contents.get(groupPosition).get(childPosition));
+			return convertView;
 		}
 
 		@Override
 		public int getChildrenCount(int groupPosition) {
-			return 0;
+			return contents.get(groupPosition).size();
 		}
 
 		@Override
 		public Object getGroup(int groupPosition) {
-			return null;
+			return getGroup(groupPosition);
 		}
 
 		@Override
 		public int getGroupCount() {
-			return 0;
+			return titles.size();
 		}
 
 		@Override
 		public long getGroupId(int groupPosition) {
-			return 0;
+			return groupPosition;
 		}
 
 		@Override
-		public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+		public View getGroupView(int groupPosition, boolean isExpanded,
+				View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = LayoutInflater.from(context).inflate(R.layout.contact_details_title, null);
+				convertView = LayoutInflater.from(context).inflate(
+						R.layout.contact_details_title, null);
 			}
-			CheckedTextView ctv = (CheckedTextView) convertView.findViewById(R.id.detail_title_item);
+			CheckedTextView ctv = (CheckedTextView) convertView
+					.findViewById(R.id.detail_title_item);
 			ctv.setText(titles.get(groupPosition));
 			ctv.setClickable(isExpanded);
 			return convertView;
