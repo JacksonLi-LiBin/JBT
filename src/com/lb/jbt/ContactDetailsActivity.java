@@ -1,22 +1,25 @@
 package com.lb.jbt;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import com.lb.entities.Friend;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckedTextView;
-import android.widget.ExpandableListView;
-import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.lb.entities.Friend;
 
 public class ContactDetailsActivity extends Activity implements
 		View.OnClickListener {
@@ -44,8 +47,6 @@ public class ContactDetailsActivity extends Activity implements
 		passFriend = (Friend) bundle.get("passFriend");
 		detailsContents.add(passFriend.getPhones());
 		detailsContents.add(passFriend.getEmails());
-		System.out.println(detailsTitles.toString() + "---------"
-				+ detailsContents.toString());
 		right_menu_btn = (ImageView) findViewById(R.id.right_menu_btn);
 		contact_details_lv = (ExpandableListView) findViewById(R.id.contact_details_lv);
 		right_menu_btn.setOnClickListener(this);
@@ -71,6 +72,7 @@ public class ContactDetailsActivity extends Activity implements
 		private Context context;
 		private List<String> titles;
 		private List<List<String>> contents;
+		private Map<Integer, Integer> checkedGroupItemMap = new HashMap<>();
 
 		public ContactDetailExpandableAdapter(Context context,
 				List<String> titles, List<List<String>> contents) {
@@ -91,16 +93,51 @@ public class ContactDetailsActivity extends Activity implements
 		}
 
 		@Override
-		public View getChildView(int groupPosition, int childPosition,
-				boolean isLastChild, View convertView, ViewGroup parent) {
+		public View getChildView(final int groupPosition,
+				final int childPosition, boolean isLastChild, View convertView,
+				ViewGroup parent) {
+			ChildViewHolder childViewHolder = null;
 			if (convertView == null) {
 				convertView = LayoutInflater.from(context).inflate(
 						R.layout.contact_details_contents, null);
+				childViewHolder = new ChildViewHolder();
+				childViewHolder.content_item = (TextView) convertView
+						.findViewById(R.id.content_item);
+				childViewHolder.checked_btn = (CheckBox) convertView
+						.findViewById(R.id.checked_btn);
+				convertView.setTag(childViewHolder);
+			} else {
+				childViewHolder = (ChildViewHolder) convertView.getTag();
 			}
-			TextView content_item = (TextView) convertView
-					.findViewById(R.id.content_item);
-			content_item
-					.setText(contents.get(groupPosition).get(childPosition));
+			childViewHolder.content_item.setText(contents.get(groupPosition)
+					.get(childPosition));
+			final int gp = groupPosition;
+			final int cp = childPosition;
+			childViewHolder.checked_btn
+					.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							if (checkedGroupItemMap.get(groupPosition) != null) {
+								// click the checked check box
+								if (checkedGroupItemMap.get(groupPosition) == childPosition) {
+									checkedGroupItemMap.remove(gp);
+								} else {
+									// click unchecked check box should uncheck
+									// the checked box
+								}
+							}
+							checkedGroupItemMap.put(gp, cp);
+						}
+					});
+			if (checkedGroupItemMap.get(groupPosition) != null) {
+				if (checkedGroupItemMap.get(groupPosition) == childPosition) {
+					childViewHolder.checked_btn.setChecked(true);
+				} else {
+					childViewHolder.checked_btn.setChecked(false);
+				}
+			} else {
+				childViewHolder.checked_btn.setChecked(false);
+			}
 			return convertView;
 		}
 
@@ -147,6 +184,10 @@ public class ContactDetailsActivity extends Activity implements
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
 			return false;
 		}
+	}
 
+	static class ChildViewHolder {
+		TextView content_item;
+		CheckBox checked_btn;
 	}
 }

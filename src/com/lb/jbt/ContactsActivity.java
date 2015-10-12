@@ -25,7 +25,7 @@ import android.widget.TextView;
  * get user contacts
  * 
  * @author jacks
- *
+ * 
  */
 public class ContactsActivity extends Activity implements View.OnClickListener {
 	private final Integer REQUEST_CONTACTS_CODE = 1;
@@ -61,16 +61,21 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 			adapter = new ContactsAdapter(friendsList, ContactsActivity.this);
 			contacts_list.setAdapter(adapter);
 		}
-		contacts_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				Intent intent = new Intent(ContactsActivity.this, ContactDetailsActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("passFriend", friendsList.get(arg2));
-				intent.putExtra("friendBundle", bundle);
-				ContactsActivity.this.startActivityForResult(intent, REQUEST_CONTACTS_DETAILS_CODE);
-			}
-		});
+		contacts_list
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View arg1,
+							int arg2, long arg3) {
+						Intent intent = new Intent(ContactsActivity.this,
+								ContactDetailsActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("passFriend",
+								friendsList.get(arg2));
+						intent.putExtra("friendBundle", bundle);
+						ContactsActivity.this.startActivityForResult(intent,
+								REQUEST_CONTACTS_DETAILS_CODE);
+					}
+				});
 	}
 
 	@Override
@@ -126,9 +131,11 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 			if (convertView != null) {
 				view = convertView;
 			} else {
-				view = LayoutInflater.from(context).inflate(R.layout.contacts_list, null);
+				view = LayoutInflater.from(context).inflate(
+						R.layout.contacts_list, null);
 			}
-			TextView friend_name = (TextView) view.findViewById(R.id.friend_name);
+			TextView friend_name = (TextView) view
+					.findViewById(R.id.friend_name);
 			Friend friend = friends.get(position);
 			friend_name.setText(friend.getFirstName());
 			return view;
@@ -143,23 +150,28 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 																		// contacts
 																		// data
 		ContentResolver resolver = ContactsActivity.this.getContentResolver();
-		Cursor cursor = resolver.query(uri, new String[] { "_id" }, null, null, null);
+		Cursor cursor = resolver.query(uri, new String[] { "_id" }, null, null,
+				"sort_key asc");
 		Friend friend = null;
 		while (cursor.moveToNext()) {
 			friend = new Friend();
 			int contactsId = cursor.getInt(0);
 			StringBuilder sb = new StringBuilder("contactsId:");
 			sb.append(contactsId);
-			uri = Uri.parse("content://com.android.contacts/contacts/" + contactsId + "/data");// get
-																								// one
-																								// contact
-																								// data
-			Cursor dataCursor = resolver.query(uri, new String[] { "mimetype", "data1", "data2" }, null, null, null);
+			uri = Uri.parse("content://com.android.contacts/contacts/"
+					+ contactsId + "/data");// get
+											// one
+											// contact
+											// data
+			Cursor dataCursor = resolver.query(uri, new String[] { "mimetype",
+					"data1", "data2" }, null, null, null);
 			List<String> emails = new ArrayList<String>();
 			List<String> phones = new ArrayList<String>();
 			while (dataCursor.moveToNext()) {
-				String data = dataCursor.getString(dataCursor.getColumnIndex("data1"));
-				String type = dataCursor.getString(dataCursor.getColumnIndex("mimetype"));
+				String data = dataCursor.getString(dataCursor
+						.getColumnIndex("data1"));
+				String type = dataCursor.getString(dataCursor
+						.getColumnIndex("mimetype"));
 				if ("vnd.android.cursor.item/name".equals(type)) {
 					sb.append(", name:" + data);
 					friend.setFirstName(data);
