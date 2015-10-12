@@ -108,5 +108,13 @@ public class MainMenuItemActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case 1:
+			
+			break;
+
+		default:
+			break;
+		}
 	}
 }

@@ -8,16 +8,19 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lb.entities.Friend;
 
@@ -26,6 +29,7 @@ public class ContactDetailsActivity extends Activity implements
 	private final Integer REQUEST_CONTACTS_DETAILS_CODE = 2;
 	private ImageView right_menu_btn;
 	private ExpandableListView contact_details_lv;
+	private Button confirm_contact_btn;
 	// email and phone
 	private List<String> detailsTitles = null;
 	// email contents and phone contents
@@ -33,6 +37,9 @@ public class ContactDetailsActivity extends Activity implements
 	private ContactDetailExpandableAdapter adapter = null;
 	// passed friend
 	private Friend passFriend = null;
+	// selected phone number and email
+	private String selectedPhone = "";
+	private String selectedEmail = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,8 @@ public class ContactDetailsActivity extends Activity implements
 		right_menu_btn = (ImageView) findViewById(R.id.right_menu_btn);
 		contact_details_lv = (ExpandableListView) findViewById(R.id.contact_details_lv);
 		right_menu_btn.setOnClickListener(this);
+		confirm_contact_btn = (Button) findViewById(R.id.confirm_contact_btn);
+		confirm_contact_btn.setOnClickListener(this);
 		adapter = new ContactDetailExpandableAdapter(
 				ContactDetailsActivity.this, detailsTitles, detailsContents);
 		contact_details_lv.setAdapter(adapter);
@@ -61,7 +70,14 @@ public class ContactDetailsActivity extends Activity implements
 		case R.id.right_menu_btn:
 			ContactDetailsActivity.this.finish();
 			break;
-
+		case R.id.confirm_contact_btn:
+			Intent data = new Intent();
+			data.putExtra("selectedPhone", selectedPhone);
+			data.putExtra("selectedEmail", selectedEmail);
+			ContactDetailsActivity.this.setResult(
+					REQUEST_CONTACTS_DETAILS_CODE, data);
+			ContactDetailsActivity.this.finish();
+			break;
 		default:
 			break;
 		}
@@ -124,9 +140,24 @@ public class ContactDetailsActivity extends Activity implements
 								} else {
 									// click unchecked check box should uncheck
 									// the checked box
+									ContactDetailExpandableAdapter.this
+											.notifyDataSetChanged();
 								}
 							}
 							checkedGroupItemMap.put(gp, cp);
+							// 0 phone 1 email
+							switch ((int) getGroupId(groupPosition)) {
+							case 0:
+								selectedPhone = contents.get(groupPosition)
+										.get(childPosition);
+								break;
+							case 1:
+								selectedEmail = contents.get(groupPosition)
+										.get(childPosition);
+								break;
+							default:
+								break;
+							}
 						}
 					});
 			if (checkedGroupItemMap.get(groupPosition) != null) {
@@ -170,6 +201,15 @@ public class ContactDetailsActivity extends Activity implements
 			}
 			CheckedTextView ctv = (CheckedTextView) convertView
 					.findViewById(R.id.detail_title_item);
+			ImageView el_arrow = (ImageView) convertView
+					.findViewById(R.id.el_arrow);
+			if (isExpanded) {
+				el_arrow.setImageBitmap(BitmapFactory.decodeResource(
+						getResources(), R.drawable.more_on));
+			} else {
+				el_arrow.setImageBitmap(BitmapFactory.decodeResource(
+						getResources(), R.drawable.more_off));
+			}
 			ctv.setText(titles.get(groupPosition));
 			ctv.setClickable(isExpanded);
 			return convertView;

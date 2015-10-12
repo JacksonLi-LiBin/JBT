@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lb.entities.Friend;
+import com.lb.entities.FriendSelected;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -20,6 +21,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * get user contacts
@@ -36,6 +38,7 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 	private ListView contacts_list;
 	private ContactsAdapter adapter = null;
 	private List<Friend> friendsList = null;
+	private Friend passFriend = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +71,9 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 							int arg2, long arg3) {
 						Intent intent = new Intent(ContactsActivity.this,
 								ContactDetailsActivity.class);
+						passFriend = friendsList.get(arg2);
 						Bundle bundle = new Bundle();
-						bundle.putSerializable("passFriend",
-								friendsList.get(arg2));
+						bundle.putSerializable("passFriend", passFriend);
 						intent.putExtra("friendBundle", bundle);
 						ContactsActivity.this.startActivityForResult(intent,
 								REQUEST_CONTACTS_DETAILS_CODE);
@@ -98,6 +101,24 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case 2:
+			FriendSelected friendSelected = new FriendSelected();
+			friendSelected.setFirstName(passFriend.getFirstName());
+			friendSelected.setLastName(passFriend.getLastName());
+			friendSelected.setPhone(data.getStringExtra("selectedPhone"));
+			friendSelected.setEmail(data.getStringExtra("selectedEmail"));
+			Intent intent = new Intent();
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("selectedFriend", friendSelected);
+			intent.putExtra("sf", bundle);
+			ContactsActivity.this.setResult(REQUEST_CONTACTS_CODE, intent);
+			ContactsActivity.this.finish();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	private class ContactsAdapter extends BaseAdapter {
