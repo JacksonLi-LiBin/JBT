@@ -65,7 +65,7 @@
                         android:layout_height="@dimen/login_item_height"
                         android:background="@null"
                         android:gravity="center_vertical|right"
-                        android:inputType="textPassword"
+                        android:inputType="text"
                         android:padding="@dimen/login_item_padding"
                         android:singleLine="true"
                         android:textSize="@dimen/type_text_size" />
@@ -106,7 +106,7 @@
                         android:layout_height="@dimen/login_item_height"
                         android:background="@null"
                         android:gravity="center_vertical|right"
-                        android:inputType="textPassword"
+                        android:inputType="text"
                         android:padding="@dimen/login_item_padding"
                         android:singleLine="true"
                         android:textSize="@dimen/type_text_size" />
@@ -147,7 +147,7 @@
                         android:layout_height="@dimen/login_item_height"
                         android:background="@null"
                         android:gravity="center_vertical|right"
-                        android:inputType="textPassword"
+                        android:inputType="text"
                         android:padding="@dimen/login_item_padding"
                         android:singleLine="true"
                         android:textSize="@dimen/type_text_size" />
@@ -188,7 +188,7 @@
                         android:layout_height="@dimen/login_item_height"
                         android:background="@null"
                         android:gravity="center_vertical|right"
-                        android:inputType="textPassword"
+                        android:inputType="text"
                         android:padding="@dimen/login_item_padding"
                         android:singleLine="true"
                         android:textSize="@dimen/type_text_size" />

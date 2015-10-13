@@ -68,6 +68,8 @@ public class ContactDetailsActivity extends Activity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.right_menu_btn:
+			ContactDetailsActivity.this.setResult(
+					REQUEST_CONTACTS_DETAILS_CODE, null);
 			ContactDetailsActivity.this.finish();
 			break;
 		case R.id.confirm_contact_btn:

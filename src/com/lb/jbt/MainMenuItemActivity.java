@@ -1,25 +1,28 @@
 package com.lb.jbt;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.lb.entities.FriendSelected;
 import com.lb.fragments.ChangePasswordFragment;
 import com.lb.fragments.ContactUsFragment;
 import com.lb.fragments.CourseSylibusFragment;
 import com.lb.fragments.RecommendFriendFragment;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-
 public class MainMenuItemActivity extends Activity {
-	private final Integer REQUEST_CONTACTS_CODE = 1;
 	private FragmentManager manager;
 	private FragmentTransaction transaction;
+	private EditText friend_name, friend_phone, friend_email;
+	private TextView friend_name_hint, friend_phone_hint, friend_email_hint;
 
 	// private String storedToken;
 	// private String userId;
@@ -44,7 +47,8 @@ public class MainMenuItemActivity extends Activity {
 		switch (itemType) {
 		case 0:
 			fragment = new CourseSylibusFragment();
-			transaction.replace(R.id.menuItemFragment, fragment, "coursesylibus");
+			transaction.replace(R.id.menuItemFragment, fragment,
+					"coursesylibus");
 			transaction.commit();
 			break;
 		case 1:
@@ -60,7 +64,8 @@ public class MainMenuItemActivity extends Activity {
 			// recommend friend
 			fragment = new RecommendFriendFragment();
 			// fragment.setArguments(passBundle);
-			transaction.replace(R.id.menuItemFragment, fragment, "recommendfriend");
+			transaction.replace(R.id.menuItemFragment, fragment,
+					"recommendfriend");
 			transaction.commit();
 			break;
 		case 5:
@@ -83,6 +88,17 @@ public class MainMenuItemActivity extends Activity {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		friend_name = (EditText) findViewById(R.id.friend_name);
+		friend_phone = (EditText) findViewById(R.id.friend_phone);
+		friend_email = (EditText) findViewById(R.id.friend_email);
+		friend_name_hint = (TextView) findViewById(R.id.friend_name_hint);
+		friend_phone_hint = (TextView) findViewById(R.id.friend_phone_hint);
+		friend_email_hint = (TextView) findViewById(R.id.friend_email_hint);
 	}
 
 	// back to main menu
@@ -110,7 +126,27 @@ public class MainMenuItemActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case 1:
-			
+			if (data != null) {
+				Bundle bundle = data.getBundleExtra("sf");
+				FriendSelected friendSelected = (FriendSelected) bundle
+						.getSerializable("selectedFriend");
+				friend_name.setText("");
+				friend_phone.setText("");
+				friend_email.setText("");
+				friend_name_hint.setVisibility(View.VISIBLE);
+				friend_phone_hint.setVisibility(View.VISIBLE);
+				friend_email_hint.setVisibility(View.VISIBLE);
+				friend_name.setText(friendSelected.getFirstName());
+				friend_name_hint.setVisibility(View.GONE);
+				if (friendSelected.getPhone().length() > 0) {
+					friend_phone.setText(friendSelected.getPhone());
+					friend_phone_hint.setVisibility(View.GONE);
+				}
+				if (friendSelected.getEmail().length() > 0) {
+					friend_email.setText(friendSelected.getEmail());
+					friend_email_hint.setVisibility(View.GONE);
+				}
+			}
 			break;
 
 		default:

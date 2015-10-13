@@ -3,9 +3,6 @@ package com.lb.jbt;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lb.entities.Friend;
-import com.lb.entities.FriendSelected;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,7 +18,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.lb.entities.Friend;
+import com.lb.entities.FriendSelected;
 
 /**
  * get user contacts
@@ -90,6 +89,7 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.right_menu_btn:
+			ContactsActivity.this.setResult(REQUEST_CONTACTS_CODE, null);
 			ContactsActivity.this.finish();
 			break;
 
@@ -103,17 +103,19 @@ public class ContactsActivity extends Activity implements View.OnClickListener {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case 2:
-			FriendSelected friendSelected = new FriendSelected();
-			friendSelected.setFirstName(passFriend.getFirstName());
-			friendSelected.setLastName(passFriend.getLastName());
-			friendSelected.setPhone(data.getStringExtra("selectedPhone"));
-			friendSelected.setEmail(data.getStringExtra("selectedEmail"));
-			Intent intent = new Intent();
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("selectedFriend", friendSelected);
-			intent.putExtra("sf", bundle);
-			ContactsActivity.this.setResult(REQUEST_CONTACTS_CODE, intent);
-			ContactsActivity.this.finish();
+			if(data!=null){
+				FriendSelected friendSelected = new FriendSelected();
+				friendSelected.setFirstName(passFriend.getFirstName());
+				friendSelected.setLastName(passFriend.getLastName());
+				friendSelected.setPhone(data.getStringExtra("selectedPhone"));
+				friendSelected.setEmail(data.getStringExtra("selectedEmail"));
+				Intent intent = new Intent();
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("selectedFriend", friendSelected);
+				intent.putExtra("sf", bundle);
+				ContactsActivity.this.setResult(REQUEST_CONTACTS_CODE, intent);
+				ContactsActivity.this.finish();
+			}
 			break;
 
 		default:
