@@ -90,7 +90,7 @@ public class ContactDetailsActivity extends Activity implements
 		private Context context;
 		private List<String> titles;
 		private List<List<String>> contents;
-		private Map<Integer, Integer> checkedGroupItemMap = new HashMap<>();
+		private Map<Integer, Integer> checkedGroupItemMap = new HashMap<Integer, Integer>();
 
 		public ContactDetailExpandableAdapter(Context context,
 				List<String> titles, List<List<String>> contents) {
