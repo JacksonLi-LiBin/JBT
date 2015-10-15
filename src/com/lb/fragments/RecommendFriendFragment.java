@@ -313,12 +313,18 @@ public class RecommendFriendFragment extends Fragment implements
 					friendPassStore.setUserId(userId);
 					url = HttpUrl.parse(ReadProperties.read("url",
 							"jackson_recommend_local") + storedToken + "/add");
-					String storeRe = post(url.toString(),
-							friendPassStore.toString(), okHttpClient);
-					if (storeRe.equals("true")) {
-						return "{reType:2}";
-					} else {
-						return "{reType:3}";
+					req = new Request.Builder()
+							.url(url)
+							.post(RequestBody.create(JSON,
+									friendPassStore.toString())).build();
+					res = okHttpClient.newCall(req).execute();
+					if (res.isSuccessful()) {
+						String storeRe = res.body().string();
+						if (storeRe.equals("true")) {
+							return "{reType:2}";
+						} else {
+							return "{reType:3}";
+						}
 					}
 					// }
 				}
@@ -331,63 +337,53 @@ public class RecommendFriendFragment extends Fragment implements
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			JSONObject jo = JSONObject.parseObject(result);
-			Integer reType = Integer.valueOf(jo.getString("reType"));
-			CustomAlertDialog.Builder builder = null;
-			Dialog dialog = null;
-			switch (reType) {
-			case 0:
-				// user time out
-				ActivityCompat.finishAffinity(RecommendFriendFragment.this
-						.getActivity());
-				Intent intent = new Intent(
-						RecommendFriendFragment.this.getActivity(),
-						LoginActivity.class);
-				startActivity(intent);
-				break;
-			case 1:
-				// remote request failed
-				break;
-			case 2:
-				// local request success
-				builder = new CustomAlertDialog.Builder(
-						RecommendFriendFragment.this.getActivity(), true);
-				builder.setDialogText(getResources().getString(
-						R.string.recommend_success));
-				builder.setPosiClickListener(new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
+			if (result != null) {
+				JSONObject jo = JSONObject.parseObject(result);
+				Integer reType = Integer.valueOf(jo.getString("reType"));
+				CustomAlertDialog.Builder builder = null;
+				Dialog dialog = null;
+				switch (reType) {
+				case 0:
+					// user time out
+					ActivityCompat.finishAffinity(RecommendFriendFragment.this
+							.getActivity());
+					Intent intent = new Intent(
+							RecommendFriendFragment.this.getActivity(),
+							LoginActivity.class);
+					startActivity(intent);
+					break;
+				case 1:
+					// remote request failed
+					break;
+				case 2:
+					// local request success
+					builder = new CustomAlertDialog.Builder(
+							RecommendFriendFragment.this.getActivity(), true);
+					builder.setDialogText(getResources().getString(
+							R.string.recommend_success));
+					builder.setPosiClickListener(new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
 
-					}
-				});
-				dialog = builder.create();
-				dialog.setCancelable(false);
-				dialog.show();
-				break;
-			case 3:
-				// local request failed
-				builder = new CustomAlertDialog.Builder(
-						RecommendFriendFragment.this.getActivity(), false);
-				builder.setDialogText(getResources().getString(
-						R.string.recommend_failed));
-				dialog = builder.create();
-				dialog.setCancelable(false);
-				dialog.show();
-				break;
-			default:
-				break;
-			}
-		}
-
-		private String post(String url, String json, OkHttpClient client)
-				throws Exception {
-			RequestBody body = RequestBody.create(JSON, json);
-			Request request = new Request.Builder().url(url).post(body).build();
-			Response response = client.newCall(request).execute();
-			if (response.isSuccessful()) {
-				return response.body().string();
-			} else {
-				throw new Exception("Unexpected code " + response);
+						}
+					});
+					dialog = builder.create();
+					dialog.setCancelable(false);
+					dialog.show();
+					break;
+				case 3:
+					// local request failed
+					builder = new CustomAlertDialog.Builder(
+							RecommendFriendFragment.this.getActivity(), false);
+					builder.setDialogText(getResources().getString(
+							R.string.recommend_failed));
+					dialog = builder.create();
+					dialog.setCancelable(false);
+					dialog.show();
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
