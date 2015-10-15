@@ -5,6 +5,7 @@ import java.util.Date;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -332,6 +333,7 @@ public class RecommendFriendFragment extends Fragment implements
 			super.onPostExecute(result);
 			JSONObject jo = JSONObject.parseObject(result);
 			Integer reType = Integer.valueOf(jo.getString("reType"));
+			CustomAlertDialog.Builder builder = null;
 			Dialog dialog = null;
 			switch (reType) {
 			case 0:
@@ -348,10 +350,23 @@ public class RecommendFriendFragment extends Fragment implements
 				break;
 			case 2:
 				// local request success
+				builder = new CustomAlertDialog.Builder(
+						RecommendFriendFragment.this.getActivity(), true);
+				builder.setDialogText(getResources().getString(
+						R.string.recommend_success));
+				builder.setPosiClickListener(new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+				dialog = builder.create();
+				dialog.setCancelable(false);
+				dialog.show();
 				break;
 			case 3:
 				// local request failed
-				CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(
+				builder = new CustomAlertDialog.Builder(
 						RecommendFriendFragment.this.getActivity(), false);
 				builder.setDialogText(getResources().getString(
 						R.string.recommend_failed));
