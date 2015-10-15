@@ -62,6 +62,9 @@ public class ContactDetailsActivity extends Activity implements
 		adapter = new ContactDetailExpandableAdapter(
 				ContactDetailsActivity.this, detailsTitles, detailsContents);
 		contact_details_lv.setAdapter(adapter);
+		for (int i = 0; i < adapter.getGroupCount(); i++) {
+			contact_details_lv.expandGroup(i);
+		}
 	}
 
 	@Override

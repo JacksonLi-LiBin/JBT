@@ -1,9 +1,15 @@
 package com.lb.fragments;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,9 +21,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lb.constants.MobileNetStatus;
+import com.lb.entities.FriendPassStore;
 import com.lb.jbt.ContactsActivity;
+import com.lb.jbt.LoginActivity;
 import com.lb.jbt.R;
+import com.lb.tools.ReadProperties;
+import com.lb.widgets.CustomAlertDialog;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 public class RecommendFriendFragment extends Fragment implements
 		View.OnClickListener {
@@ -227,7 +244,7 @@ public class RecommendFriendFragment extends Fragment implements
 			}
 			if (ret > 0) {
 				if (MobileNetStatus.isNetUsable) {
-
+					new RecommendAsync().execute();
 				} else {
 					// network is unavailable
 					Toast.makeText(RecommendFriendFragment.this.getActivity(),
@@ -238,6 +255,125 @@ public class RecommendFriendFragment extends Fragment implements
 			break;
 		default:
 			break;
+		}
+	}
+
+	private class RecommendAsync extends AsyncTask<Void, Void, String> {
+		private SimpleDateFormat sdf = new SimpleDateFormat(
+				"dd/MM/yyyy HH:mm:ss");
+		private final MediaType JSON = MediaType
+				.parse("application/json; charset=utf-8");
+		private final OkHttpClient okHttpClient = new OkHttpClient();
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				HttpUrl url = HttpUrl.parse(ReadProperties.read("url",
+						"jackson_schedule") + storedToken + "/tokenIsUsable");
+				Request req = new Request.Builder().url(url).build();
+				Response res = okHttpClient.newCall(req).execute();
+				if (res.isSuccessful()) {
+					String checkRe = res.body().string();
+					if (checkRe.equals("false")) {
+						return "{reType:0}";
+					}
+					// url = HttpUrl
+					// .parse(ReadProperties.read("url",
+					// "jackson_recommend_remote")
+					// + friend_name.getText().toString()
+					// + "&lastName="
+					// + friend_name.getText().toString()
+					// + "&fullPhoneNumber="
+					// + friend_phone.getText().toString()
+					// + "&email="
+					// + friend_email.getText().toString()
+					// + "&organization=jbt&dateAndTimeOfLead="
+					// + sdf.format(new Date())
+					// +
+					// "&campaign=448&leadSource=894&studyExtention=1&agreeForAdvertisement=0");
+					// req=new Request.Builder().url(url).build();
+					// res=okHttpClient.newCall(req).execute();
+					// if(res.isSuccessful()){
+					// String remoteRe=res.body().string();
+					// if(!remoteRe.equals("Parameters")){
+					// return "{reType:1}";
+					// }
+					FriendPassStore friendPassStore = new FriendPassStore();
+					friendPassStore.setFirstName(friend_name.getText()
+							.toString());
+					friendPassStore.setLastName(friend_name.getText()
+							.toString());
+					friendPassStore.setPhone(friend_phone.getText().toString());
+					friendPassStore.setEmail(friend_email.getText().toString());
+					friendPassStore
+							.setDataAndTimeOfLead(sdf.format(new Date()));
+					friendPassStore.setInterest(friend_interest.getText()
+							.toString());
+					friendPassStore.setUserId(userId);
+					url = HttpUrl.parse(ReadProperties.read("url",
+							"jackson_recommend_local") + storedToken + "/add");
+					String storeRe = post(url.toString(),
+							friendPassStore.toString(), okHttpClient);
+					if (storeRe.equals("true")) {
+						return "{reType:2}";
+					} else {
+						return "{reType:3}";
+					}
+					// }
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			JSONObject jo = JSONObject.parseObject(result);
+			Integer reType = Integer.valueOf(jo.getString("reType"));
+			Dialog dialog = null;
+			switch (reType) {
+			case 0:
+				// user time out
+				ActivityCompat.finishAffinity(RecommendFriendFragment.this
+						.getActivity());
+				Intent intent = new Intent(
+						RecommendFriendFragment.this.getActivity(),
+						LoginActivity.class);
+				startActivity(intent);
+				break;
+			case 1:
+				// remote request failed
+				break;
+			case 2:
+				// local request success
+				break;
+			case 3:
+				// local request failed
+				CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(
+						RecommendFriendFragment.this.getActivity(), false);
+				builder.setDialogText(getResources().getString(
+						R.string.recommend_failed));
+				dialog = builder.create();
+				dialog.setCancelable(false);
+				dialog.show();
+				break;
+			default:
+				break;
+			}
+		}
+
+		private String post(String url, String json, OkHttpClient client)
+				throws Exception {
+			RequestBody body = RequestBody.create(JSON, json);
+			Request request = new Request.Builder().url(url).post(body).build();
+			Response response = client.newCall(request).execute();
+			if (response.isSuccessful()) {
+				return response.body().string();
+			} else {
+				throw new Exception("Unexpected code " + response);
+			}
 		}
 	}
 }

@@ -81,5 +81,7 @@
     <string name="recommend_outlook_contact">Outlook</string>
     <string name="emial">תיבת דואר</string>
     <string name="phone">מספרי טלפון</string>
+    <string name="recommend_failed">המלץ לחבר נכשל!</string>
+    <string name="recommend_success">דוא"ל להצלחה חבר!</string>
 
 </resources>
