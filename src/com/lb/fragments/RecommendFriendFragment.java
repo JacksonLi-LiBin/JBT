@@ -31,7 +31,7 @@ import com.lb.entities.FriendPassStore;
 import com.lb.jbt.ContactsActivity;
 import com.lb.jbt.LoginActivity;
 import com.lb.jbt.R;
-import com.lb.requestinterface.RecommendFriendInterface;
+import com.lb.requestinterface.RecommendFriendClient;
 import com.lb.tools.ReadProperties;
 import com.lb.widgets.CustomAlertDialog;
 import com.squareup.okhttp.HttpUrl;
@@ -322,7 +322,7 @@ public class RecommendFriendFragment extends Fragment implements
 					// .post(RequestBody.create(JSON,
 					// friendPassStore.toString())).build();
 					// res = okHttpClient.newCall(req).execute();
-					Call<String> recommendResult = RecommendFriendInterface
+					Call<String> recommendResult = RecommendFriendClient
 							.getRecommendFriendClient().recommendFriend(
 									storedToken, friendPassStore);
 					recommendResult.enqueue(new Callback<String>() {

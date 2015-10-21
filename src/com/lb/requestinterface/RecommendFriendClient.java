@@ -5,7 +5,7 @@ import retrofit.Retrofit;
 
 import com.lb.tools.ReadProperties;
 
-public class RecommendFriendInterface {
+public class RecommendFriendClient {
 	private static RecommendFreindService recommendFreindService;
 
 	public static RecommendFreindService getRecommendFriendClient() {
