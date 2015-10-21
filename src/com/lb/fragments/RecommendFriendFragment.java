@@ -3,6 +3,9 @@ package com.lb.fragments;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Retrofit;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -28,6 +31,7 @@ import com.lb.entities.FriendPassStore;
 import com.lb.jbt.ContactsActivity;
 import com.lb.jbt.LoginActivity;
 import com.lb.jbt.R;
+import com.lb.requestinterface.RecommendFriendInterface;
 import com.lb.tools.ReadProperties;
 import com.lb.widgets.CustomAlertDialog;
 import com.squareup.okhttp.HttpUrl;
@@ -311,21 +315,35 @@ public class RecommendFriendFragment extends Fragment implements
 					friendPassStore.setInterest(friend_interest.getText()
 							.toString());
 					friendPassStore.setUserId(userId);
-					url = HttpUrl.parse(ReadProperties.read("url",
-							"jackson_recommend_local") + storedToken + "/add");
-					req = new Request.Builder()
-							.url(url)
-							.post(RequestBody.create(JSON,
-									friendPassStore.toString())).build();
-					res = okHttpClient.newCall(req).execute();
-					if (res.isSuccessful()) {
-						String storeRe = res.body().string();
-						if (storeRe.equals("true")) {
-							return "{reType:2}";
-						} else {
-							return "{reType:3}";
+					// url = HttpUrl.parse(ReadProperties.read("url",
+					// "jackson_recommend_local") + storedToken + "/add");
+					// req = new Request.Builder()
+					// .url(url)
+					// .post(RequestBody.create(JSON,
+					// friendPassStore.toString())).build();
+					// res = okHttpClient.newCall(req).execute();
+					Call<String> recommendResult = RecommendFriendInterface
+							.getRecommendFriendClient().recommendFriend(
+									storedToken, friendPassStore);
+					recommendResult.enqueue(new Callback<String>() {
+						@Override
+						public void onFailure(Throwable arg0) {
 						}
-					}
+
+						@Override
+						public void onResponse(retrofit.Response<String> arg0,
+								Retrofit arg1) {
+							System.out.println("success-------->" + arg0.body());
+						}
+					});
+					// if (res.isSuccessful()) {
+					// String storeRe = res.body().string();
+					// if (storeRe.equals("true")) {
+					// return "{reType:2}";
+					// } else {
+					// return "{reType:3}";
+					// }
+					// }
 					// }
 				}
 			} catch (Exception e) {

@@ -1,7 +1,6 @@
 package com.lb.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * friend entity

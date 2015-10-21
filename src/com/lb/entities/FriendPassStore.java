@@ -8,6 +8,7 @@ public class FriendPassStore implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1928709621913105787L;
+	private int friendId;
 	private String firstName;
 	private String lastName;
 	private String phone;
@@ -30,6 +31,14 @@ public class FriendPassStore implements Serializable {
 		studyExtension = "1";
 		agreeForad = "0";
 		emailStatus = "0";
+	}
+
+	public int getFriendId() {
+		return friendId;
+	}
+
+	public void setFriendId(int friendId) {
+		this.friendId = friendId;
 	}
 
 	public String getFirstName() {
@@ -138,13 +147,14 @@ public class FriendPassStore implements Serializable {
 
 	@Override
 	public String toString() {
-		return "{firstName:" + firstName + ", lastName:" + lastName
-				+ ", phone:" + phone + ", email:" + email + ", organization:"
-				+ organization + ", dataAndTimeOfLead:" + dataAndTimeOfLead
-				+ ", campaign:" + campaign + ", leadSource:" + leadSource
-				+ ", studyExtension:" + studyExtension + ", agreeForad:"
-				+ agreeForad + ", interest:" + interest + ", userId:" + userId
-				+ ", emailStatus:" + emailStatus + "}";
+		return "{friendId:" + friendId + ",firstName:" + firstName
+				+ ", lastName:" + lastName + ", phone:" + phone + ", email:"
+				+ email + ", organization:" + organization
+				+ ", dataAndTimeOfLead:" + dataAndTimeOfLead + ", campaign:"
+				+ campaign + ", leadSource:" + leadSource + ", studyExtension:"
+				+ studyExtension + ", agreeForad:" + agreeForad + ", interest:"
+				+ interest + ", userId:" + userId + ", emailStatus:"
+				+ emailStatus + "}";
 	}
 
 }

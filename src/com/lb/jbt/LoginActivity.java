@@ -6,17 +6,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.lb.constants.MobileNetStatus;
-import com.lb.entities.Branch;
-import com.lb.entities.Course;
-import com.lb.entities.Student;
-import com.lb.tools.ReadProperties;
-import com.lb.widgets.CustomAlertDialog;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -41,6 +30,17 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lb.constants.MobileNetStatus;
+import com.lb.entities.Branch;
+import com.lb.entities.Course;
+import com.lb.entities.Student;
+import com.lb.tools.ReadProperties;
+import com.lb.widgets.CustomAlertDialog;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 public class LoginActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
 	private static final String TAG = "LoginActivity";

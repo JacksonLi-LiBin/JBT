@@ -2,16 +2,6 @@ package com.lb.fragments;
 
 import org.json.JSONObject;
 
-import com.lb.constants.MobileNetStatus;
-import com.lb.jbt.LoginActivity;
-import com.lb.jbt.R;
-import com.lb.tools.ReadProperties;
-import com.lb.widgets.CustomAlertDialog;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -33,6 +23,16 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lb.constants.MobileNetStatus;
+import com.lb.jbt.LoginActivity;
+import com.lb.jbt.R;
+import com.lb.tools.ReadProperties;
+import com.lb.widgets.CustomAlertDialog;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 public class ContactUsFragment extends Fragment implements View.OnClickListener {
 	private SharedPreferences spf = null;

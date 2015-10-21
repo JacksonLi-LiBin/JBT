@@ -1,15 +1,5 @@
 package com.lb.fragments;
 
-import com.lb.constants.MobileNetStatus;
-import com.lb.jbt.LoginActivity;
-import com.lb.jbt.R;
-import com.lb.tools.ReadProperties;
-import com.lb.widgets.CustomAlertDialog;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
@@ -32,6 +22,16 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lb.constants.MobileNetStatus;
+import com.lb.jbt.LoginActivity;
+import com.lb.jbt.R;
+import com.lb.tools.ReadProperties;
+import com.lb.widgets.CustomAlertDialog;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 public class ChangePasswordFragment extends Fragment implements OnTouchListener {
 	// private FragmentManager manager;

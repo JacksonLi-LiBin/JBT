@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lb.entities.FriendSelected;
 import com.lb.fragments.ChangePasswordFragment;
