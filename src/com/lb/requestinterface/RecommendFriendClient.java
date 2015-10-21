@@ -10,13 +10,10 @@ public class RecommendFriendClient {
 
 	public static RecommendFreindService getRecommendFriendClient() {
 		if (recommendFreindService == null) {
-			Retrofit retrofit = new Retrofit.Builder()
-					.baseUrl(
-							ReadProperties.read("url",
-									"jackson_recommend_local"))
+			Retrofit retrofit = new Retrofit.Builder().client(GetOkHttpClient.getOkHttpClient())
+					.baseUrl(ReadProperties.read("url", "jackson_recommend_local"))
 					.addConverterFactory(GsonConverterFactory.create()).build();
-			recommendFreindService = retrofit
-					.create(RecommendFreindService.class);
+			recommendFreindService = retrofit.create(RecommendFreindService.class);
 		}
 		return recommendFreindService;
 	}

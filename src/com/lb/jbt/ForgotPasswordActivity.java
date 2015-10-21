@@ -6,6 +6,16 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.lb.constants.MobileNetStatus;
+import com.lb.entities.Course;
+import com.lb.entities.Student;
+import com.lb.tools.ReadProperties;
+import com.lb.widgets.CustomAlertDialog;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -28,16 +38,6 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.lb.constants.MobileNetStatus;
-import com.lb.entities.Course;
-import com.lb.entities.Student;
-import com.lb.tools.ReadProperties;
-import com.lb.widgets.CustomAlertDialog;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 public class ForgotPasswordActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
 	private ScrollView forgot_pwd_items_layout;
@@ -149,12 +149,25 @@ public class ForgotPasswordActivity extends Activity implements View.OnTouchList
 								return "{backResult:1}";
 							}
 						}
+						// try {
+						// Call<String> reqCall =
+						// CommonMethodsClient.getCommonMethodsService()
+						// .forgetPassword(stu_num.getText().toString(),
+						// userEmail);
+						// retrofit.Response<String> reqResult =
+						// reqCall.execute();
+						// System.out.println("---->" + reqResult.body());
+						// if (reqResult.body().equals("true")) {
+						// return "{backResult:2}";
+						// } else {
+						// return "{backResult:1}";
+						// }
+						// } catch (Exception e) {
+						// return "{backResult:1}";
+						// }
 					} else {
 						return "{backResult:0}";
 					}
-					break;
-				default:
-					break;
 				}
 
 			} catch (Exception e) {

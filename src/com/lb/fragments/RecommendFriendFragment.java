@@ -41,55 +41,41 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-public class RecommendFriendFragment extends Fragment implements
-		View.OnClickListener {
+public class RecommendFriendFragment extends Fragment implements View.OnClickListener {
 	private final Integer REQUEST_CONTACTS_CODE = 1;
 	private SharedPreferences spf = null;
 	private String storedToken, userId;
 	private EditText friend_name, friend_phone, friend_email, friend_interest;
-	private TextView friend_name_hint, friend_phone_hint, friend_email_hint,
-			friend_interest_hint;
-	private Button recommend_friend_btn, read_local_contacts,
-			read_google_contacts, read_outlook_contacts;
+	private TextView friend_name_hint, friend_phone_hint, friend_email_hint, friend_interest_hint;
+	private Button recommend_friend_btn, read_local_contacts, read_google_contacts, read_outlook_contacts;
 	private LinearLayout choose_contact_type_btn, contact_type_items;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		spf = RecommendFriendFragment.this.getActivity().getSharedPreferences(
-				"jbt", RecommendFriendFragment.this.getActivity().MODE_PRIVATE);
+		spf = RecommendFriendFragment.this.getActivity().getSharedPreferences("jbt",
+				RecommendFriendFragment.this.getActivity().MODE_PRIVATE);
 		storedToken = spf.getString("userToken", "");
 		userId = spf.getString("userId", "");
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.recommend_friend_fragment,
-				container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.recommend_friend_fragment, container, false);
 		friend_name = (EditText) view.findViewById(R.id.friend_name);
 		friend_phone = (EditText) view.findViewById(R.id.friend_phone);
 		friend_email = (EditText) view.findViewById(R.id.friend_email);
 		friend_interest = (EditText) view.findViewById(R.id.friend_interest);
 		friend_name_hint = (TextView) view.findViewById(R.id.friend_name_hint);
-		friend_phone_hint = (TextView) view
-				.findViewById(R.id.friend_phone_hint);
-		friend_email_hint = (TextView) view
-				.findViewById(R.id.friend_email_hint);
-		friend_interest_hint = (TextView) view
-				.findViewById(R.id.friend_interest_hint);
-		recommend_friend_btn = (Button) view
-				.findViewById(R.id.recommend_friend_btn);
-		choose_contact_type_btn = (LinearLayout) view
-				.findViewById(R.id.choose_contact_type_btn);
-		contact_type_items = (LinearLayout) view
-				.findViewById(R.id.contact_type_items);
-		read_local_contacts = (Button) view
-				.findViewById(R.id.read_local_contacts);
-		read_google_contacts = (Button) view
-				.findViewById(R.id.read_google_contacts);
-		read_outlook_contacts = (Button) view
-				.findViewById(R.id.read_outlook_contacts);
+		friend_phone_hint = (TextView) view.findViewById(R.id.friend_phone_hint);
+		friend_email_hint = (TextView) view.findViewById(R.id.friend_email_hint);
+		friend_interest_hint = (TextView) view.findViewById(R.id.friend_interest_hint);
+		recommend_friend_btn = (Button) view.findViewById(R.id.recommend_friend_btn);
+		choose_contact_type_btn = (LinearLayout) view.findViewById(R.id.choose_contact_type_btn);
+		contact_type_items = (LinearLayout) view.findViewById(R.id.contact_type_items);
+		read_local_contacts = (Button) view.findViewById(R.id.read_local_contacts);
+		read_google_contacts = (Button) view.findViewById(R.id.read_google_contacts);
+		read_outlook_contacts = (Button) view.findViewById(R.id.read_outlook_contacts);
 		choose_contact_type_btn.setOnClickListener(this);
 		read_local_contacts.setOnClickListener(this);
 		read_google_contacts.setOnClickListener(this);
@@ -97,10 +83,8 @@ public class RecommendFriendFragment extends Fragment implements
 		recommend_friend_btn.setOnClickListener(this);
 		friend_name.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				friend_name_hint.setTextColor(getResources().getColor(
-						R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				friend_name_hint.setTextColor(getResources().getColor(R.color.hint_text));
 				if (s.toString().length() > 0) {
 					friend_name_hint.setVisibility(View.GONE);
 				} else {
@@ -109,8 +93,7 @@ public class RecommendFriendFragment extends Fragment implements
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
 
 			@Override
@@ -120,10 +103,8 @@ public class RecommendFriendFragment extends Fragment implements
 		friend_phone.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				friend_phone_hint.setTextColor(getResources().getColor(
-						R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				friend_phone_hint.setTextColor(getResources().getColor(R.color.hint_text));
 				if (s.toString().length() > 0) {
 					friend_phone_hint.setVisibility(View.GONE);
 				} else {
@@ -132,8 +113,7 @@ public class RecommendFriendFragment extends Fragment implements
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
 
 			@Override
@@ -143,10 +123,8 @@ public class RecommendFriendFragment extends Fragment implements
 		friend_email.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				friend_email_hint.setTextColor(getResources().getColor(
-						R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				friend_email_hint.setTextColor(getResources().getColor(R.color.hint_text));
 				if (s.toString().length() > 0) {
 					friend_email_hint.setVisibility(View.GONE);
 				} else {
@@ -155,8 +133,7 @@ public class RecommendFriendFragment extends Fragment implements
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
 
 			@Override
@@ -166,10 +143,8 @@ public class RecommendFriendFragment extends Fragment implements
 		friend_interest.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				friend_interest_hint.setTextColor(getResources().getColor(
-						R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				friend_interest_hint.setTextColor(getResources().getColor(R.color.hint_text));
 				if (s.toString().length() > 0) {
 					friend_interest_hint.setVisibility(View.GONE);
 				} else {
@@ -178,8 +153,7 @@ public class RecommendFriendFragment extends Fragment implements
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
 
 			@Override
@@ -207,44 +181,34 @@ public class RecommendFriendFragment extends Fragment implements
 			}
 			break;
 		case R.id.read_local_contacts:
-			intent = new Intent(RecommendFriendFragment.this.getActivity(),
-					ContactsActivity.class);
+			intent = new Intent(RecommendFriendFragment.this.getActivity(), ContactsActivity.class);
 			bundle = new Bundle();
 			bundle.putString("contact_type", "local");
 			intent.putExtra("pass_bundle", bundle);
-			RecommendFriendFragment.this.getActivity().startActivityForResult(
-					intent, REQUEST_CONTACTS_CODE);
+			RecommendFriendFragment.this.getActivity().startActivityForResult(intent, REQUEST_CONTACTS_CODE);
 			contact_type_items.setVisibility(View.GONE);
 			break;
 		case R.id.recommend_friend_btn:
 			int ret = 1;
-			friend_name_hint.setTextColor(getResources().getColor(
-					R.color.hint_text));
-			friend_phone_hint.setHintTextColor(getResources().getColor(
-					R.color.hint_text));
-			friend_email_hint.setTextColor(getResources().getColor(
-					R.color.hint_text));
-			friend_interest_hint.setTextColor(getResources().getColor(
-					R.color.hint_text));
+			friend_name_hint.setTextColor(getResources().getColor(R.color.hint_text));
+			friend_phone_hint.setHintTextColor(getResources().getColor(R.color.hint_text));
+			friend_email_hint.setTextColor(getResources().getColor(R.color.hint_text));
+			friend_interest_hint.setTextColor(getResources().getColor(R.color.hint_text));
 			if (friend_name.getText().toString().length() <= 0) {
 				ret = -1;
-				friend_name_hint.setTextColor(getResources().getColor(
-						R.color.red_light));
+				friend_name_hint.setTextColor(getResources().getColor(R.color.red_light));
 				return;
 			} else if (friend_phone.getText().toString().length() <= 0) {
 				ret = -1;
-				friend_phone_hint.setTextColor(getResources().getColor(
-						R.color.red_light));
+				friend_phone_hint.setTextColor(getResources().getColor(R.color.red_light));
 				return;
 			} else if (friend_email.getText().toString().length() <= 0) {
 				ret = -1;
-				friend_email_hint.setTextColor(getResources().getColor(
-						R.color.red_light));
+				friend_email_hint.setTextColor(getResources().getColor(R.color.red_light));
 				return;
 			} else if (friend_interest.getText().toString().length() <= 0) {
 				ret = -1;
-				friend_interest_hint.setTextColor(getResources().getColor(
-						R.color.red_light));
+				friend_interest_hint.setTextColor(getResources().getColor(R.color.red_light));
 				return;
 			}
 			if (ret > 0) {
@@ -253,8 +217,7 @@ public class RecommendFriendFragment extends Fragment implements
 				} else {
 					// network is unavailable
 					Toast.makeText(RecommendFriendFragment.this.getActivity(),
-							getResources().getString(R.string.net_unusable),
-							Toast.LENGTH_SHORT).show();
+							getResources().getString(R.string.net_unusable), Toast.LENGTH_SHORT).show();
 				}
 			}
 			break;
@@ -264,17 +227,15 @@ public class RecommendFriendFragment extends Fragment implements
 	}
 
 	private class RecommendAsync extends AsyncTask<Void, Void, String> {
-		private SimpleDateFormat sdf = new SimpleDateFormat(
-				"dd/MM/yyyy HH:mm:ss");
-		private final MediaType JSON = MediaType
-				.parse("application/json; charset=utf-8");
+		private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 		private final OkHttpClient okHttpClient = new OkHttpClient();
 
 		@Override
 		protected String doInBackground(Void... params) {
 			try {
-				HttpUrl url = HttpUrl.parse(ReadProperties.read("url",
-						"jackson_schedule") + storedToken + "/tokenIsUsable");
+				HttpUrl url = HttpUrl
+						.parse(ReadProperties.read("url", "jackson_schedule") + storedToken + "/tokenIsUsable");
 				Request req = new Request.Builder().url(url).build();
 				Response res = okHttpClient.newCall(req).execute();
 				if (res.isSuccessful()) {
@@ -304,16 +265,12 @@ public class RecommendFriendFragment extends Fragment implements
 					// return "{reType:1}";
 					// }
 					FriendPassStore friendPassStore = new FriendPassStore();
-					friendPassStore.setFirstName(friend_name.getText()
-							.toString());
-					friendPassStore.setLastName(friend_name.getText()
-							.toString());
+					friendPassStore.setFirstName(friend_name.getText().toString());
+					friendPassStore.setLastName(friend_name.getText().toString());
 					friendPassStore.setPhone(friend_phone.getText().toString());
 					friendPassStore.setEmail(friend_email.getText().toString());
-					friendPassStore
-							.setDataAndTimeOfLead(sdf.format(new Date()));
-					friendPassStore.setInterest(friend_interest.getText()
-							.toString());
+					friendPassStore.setDataAndTimeOfLead(sdf.format(new Date()));
+					friendPassStore.setInterest(friend_interest.getText().toString());
 					friendPassStore.setUserId(userId);
 					// url = HttpUrl.parse(ReadProperties.read("url",
 					// "jackson_recommend_local") + storedToken + "/add");
@@ -322,17 +279,15 @@ public class RecommendFriendFragment extends Fragment implements
 					// .post(RequestBody.create(JSON,
 					// friendPassStore.toString())).build();
 					// res = okHttpClient.newCall(req).execute();
-					Call<String> recommendResult = RecommendFriendClient
-							.getRecommendFriendClient().recommendFriend(
-									storedToken, friendPassStore);
-					recommendResult.enqueue(new Callback<String>() {
+					Call<String> recommendCall = RecommendFriendClient.getRecommendFriendClient()
+							.recommendFriend(storedToken, friendPassStore);
+					recommendCall.enqueue(new Callback<String>() {
 						@Override
 						public void onFailure(Throwable arg0) {
 						}
 
 						@Override
-						public void onResponse(retrofit.Response<String> arg0,
-								Retrofit arg1) {
+						public void onResponse(retrofit.Response<String> arg0, Retrofit arg1) {
 							System.out.println("success-------->" + arg0.body());
 						}
 					});
@@ -363,11 +318,8 @@ public class RecommendFriendFragment extends Fragment implements
 				switch (reType) {
 				case 0:
 					// user time out
-					ActivityCompat.finishAffinity(RecommendFriendFragment.this
-							.getActivity());
-					Intent intent = new Intent(
-							RecommendFriendFragment.this.getActivity(),
-							LoginActivity.class);
+					ActivityCompat.finishAffinity(RecommendFriendFragment.this.getActivity());
+					Intent intent = new Intent(RecommendFriendFragment.this.getActivity(), LoginActivity.class);
 					startActivity(intent);
 					break;
 				case 1:
@@ -375,10 +327,8 @@ public class RecommendFriendFragment extends Fragment implements
 					break;
 				case 2:
 					// local request success
-					builder = new CustomAlertDialog.Builder(
-							RecommendFriendFragment.this.getActivity(), true);
-					builder.setDialogText(getResources().getString(
-							R.string.recommend_success));
+					builder = new CustomAlertDialog.Builder(RecommendFriendFragment.this.getActivity(), true);
+					builder.setDialogText(getResources().getString(R.string.recommend_success));
 					builder.setPosiClickListener(new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -391,10 +341,8 @@ public class RecommendFriendFragment extends Fragment implements
 					break;
 				case 3:
 					// local request failed
-					builder = new CustomAlertDialog.Builder(
-							RecommendFriendFragment.this.getActivity(), false);
-					builder.setDialogText(getResources().getString(
-							R.string.recommend_failed));
+					builder = new CustomAlertDialog.Builder(RecommendFriendFragment.this.getActivity(), false);
+					builder.setDialogText(getResources().getString(R.string.recommend_failed));
 					dialog = builder.create();
 					dialog.setCancelable(false);
 					dialog.show();
