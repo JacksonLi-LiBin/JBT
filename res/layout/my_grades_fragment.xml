@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/sv_my_grades"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_grew_bg"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingLeft="@dimen/login_item_padding"
+        android:paddingRight="@dimen/login_item_padding"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/menu_item_title"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/deep_grew_bg"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    style="@style/menu_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/my_grades_title" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:contentDescription="@string/main_bg_img_des"
+                    android:src="@drawable/check_grades" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_btn_height"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/my_grades_header_right_border"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/main_menu_item_padding"
+                            android:paddingRight="@dimen/main_menu_item_padding"
+                            android:text="@string/grades_title" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="7"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/grey_item_bg"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/main_menu_item_padding"
+                            android:paddingRight="@dimen/main_menu_item_padding"
+                            android:text="@string/subject_title" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/subjects_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_btn_height"
+                        android:layout_marginTop="@dimen/login_item_padding"
+                        android:orientation="horizontal" >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/my_grades_body_right_border"
+                                android:gravity="center"
+                                android:paddingLeft="@dimen/main_menu_item_padding"
+                                android:paddingRight="@dimen/main_menu_item_padding"
+                                android:text="ccc" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="7"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/white_bg"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/main_menu_item_padding"
+                                android:paddingRight="@dimen/main_menu_item_padding"
+                                android:text="ccc" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/login_btn_height"
+                    android:layout_marginTop="@dimen/login_item_padding"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/my_grades_footer_right_border"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/main_menu_item_padding"
+                            android:paddingRight="@dimen/main_menu_item_padding"
+                            android:text="@string/average_init_value"
+                            android:textColor="@color/white_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="7"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/deep_grew_bg"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/main_menu_item_padding"
+                            android:paddingRight="@dimen/main_menu_item_padding"
+                            android:text="@string/average_title"
+                            android:textColor="@color/white_text" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

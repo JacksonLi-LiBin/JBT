@@ -1,4 +1,4 @@
-package com.lb.requestinterface;
+package com.lb.request;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;

@@ -15,6 +15,7 @@ import com.lb.entities.FriendSelected;
 import com.lb.fragments.ChangePasswordFragment;
 import com.lb.fragments.ContactUsFragment;
 import com.lb.fragments.CourseSylibusFragment;
+import com.lb.fragments.MyGradesFragment;
 import com.lb.fragments.RecommendFriendFragment;
 
 public class MainMenuItemActivity extends Activity {
@@ -37,12 +38,7 @@ public class MainMenuItemActivity extends Activity {
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		Integer itemType = bundle.getInt("itemType");
-		// userId = bundle.getString("userId");
-		// storedToken = bundle.getString("storedToken");
 		Fragment fragment = null;
-		// Bundle passBundle = new Bundle();
-		// passBundle.putString("storedToken", storedToken);
-		// passBundle.putString("userId", userId);
 		switch (itemType) {
 		case 0:
 			fragment = new CourseSylibusFragment();
@@ -51,7 +47,10 @@ public class MainMenuItemActivity extends Activity {
 			transaction.commit();
 			break;
 		case 1:
-
+			// get my grades
+			fragment = new MyGradesFragment();
+			transaction.replace(R.id.menuItemFragment, fragment, "mygrades");
+			transaction.commit();
 			break;
 		case 2:
 
@@ -62,7 +61,6 @@ public class MainMenuItemActivity extends Activity {
 		case 4:
 			// recommend friend
 			fragment = new RecommendFriendFragment();
-			// fragment.setArguments(passBundle);
 			transaction.replace(R.id.menuItemFragment, fragment,
 					"recommendfriend");
 			transaction.commit();

@@ -1,4 +1,4 @@
-package com.lb.requestinterface;
+package com.lb.request;
 
 import com.lb.tools.ReadProperties;
 

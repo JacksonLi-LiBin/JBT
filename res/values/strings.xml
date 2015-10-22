@@ -83,5 +83,11 @@
     <string name="phone">מספרי טלפון</string>
     <string name="recommend_failed">המלץ לחבר נכשל!</string>
     <string name="recommend_success">דוא"ל להצלחה חבר!</string>
+    <!-- my grades -->
+    <string name="my_grades_title">הציונים שלי</string>
+    <string name="grades_title">ציון</string>
+    <string name="subject_title">נושא</string>
+    <string name="average_title">ממוצע ציונים</string>
+    <string name="average_init_value">0</string>
 
 </resources>
