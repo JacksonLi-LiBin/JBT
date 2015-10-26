@@ -1,9 +1,9 @@
 package com.lb.request;
 
-import com.lb.tools.ReadProperties;
-
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
+
+import com.lb.tools.ReadProperties;
 
 public class CommonMethodsClient {
 	private static CommonMethodsService commonMethodsService;

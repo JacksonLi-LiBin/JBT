@@ -1,9 +1,8 @@
 package com.lb.request;
 
-import com.lb.tools.ReadProperties;
-
-import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
+
+import com.lb.tools.ReadProperties;
 
 public class GetMyGradesClient {
 	private static GetMyGradesService getMyGradesService;
@@ -15,7 +14,8 @@ public class GetMyGradesClient {
 					.baseUrl(
 							ReadProperties.read("url",
 									"jackson_grades_getgrades"))
-					.addConverterFactory(GsonConverterFactory.create()).build();
+					.addConverterFactory(new ToStringConverterFactory())
+					.build();
 			getMyGradesService = retrofit.create(GetMyGradesService.class);
 		}
 		return getMyGradesService;

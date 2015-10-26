@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Retrofit;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -35,10 +33,8 @@ import com.lb.request.RecommendFriendClient;
 import com.lb.tools.ReadProperties;
 import com.lb.widgets.CustomAlertDialog;
 import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 public class RecommendFriendFragment extends Fragment implements
