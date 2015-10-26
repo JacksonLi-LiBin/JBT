@@ -7,6 +7,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.lb.constants.MobileNetStatus;
+import com.lb.entities.CourseSyllabus;
+import com.lb.jbt.LoginActivity;
+import com.lb.jbt.R;
+import com.lb.tools.ReadProperties;
+import com.lb.widgets.CustomAlertDialog;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.tjerkw.slideexpandable.library.AbstractSlideExpandableListAdapter.SetExpandItemCallBack;
+import com.tjerkw.slideexpandable.library.ActionSlideExpandableListView;
+
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
@@ -19,24 +32,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lb.constants.MobileNetStatus;
-import com.lb.entities.CourseSyllabus;
-import com.lb.jbt.LoginActivity;
-import com.lb.jbt.R;
-import com.lb.tools.ReadProperties;
-import com.lb.widgets.CustomAlertDialog;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.tjerkw.slideexpandable.library.ActionSlideExpandableListView;
-
 public class CourseSylibusFragment extends Fragment {
 	private SharedPreferences spf = null;
+	private List<CourseSyllabus> courseSyllabusList = null;
 	private ActionSlideExpandableListView course_sylibus_list;
 	private CourseSylibusExpandAdapter adapter = null;
 	private String userToken, userId;
@@ -48,6 +49,8 @@ public class CourseSylibusFragment extends Fragment {
 				CourseSylibusFragment.this.getActivity().MODE_PRIVATE);
 		userToken = spf.getString("userToken", "");
 		userId = spf.getString("userId", "");
+		courseSyllabusList = new ArrayList<CourseSyllabus>();
+		adapter = new CourseSylibusExpandAdapter(courseSyllabusList);
 		if (MobileNetStatus.isNetUsable) {
 			new CourseSylibusAsync().execute();
 		} else {
@@ -61,12 +64,30 @@ public class CourseSylibusFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.course_sylibus_fragment, container, false);
 		course_sylibus_list = (ActionSlideExpandableListView) view.findViewById(R.id.course_sylibus_list);
+		course_sylibus_list.setAdapter(adapter);
 		return view;
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
+	}
+
+	private void setExpandItem(int itemNum, SetExpandItemCallBack callBack) {
+		callBack.setExpandItem(itemNum);
+	}
+
+	public void setItemNum(int itemNum) {
+		setExpandItem(itemNum, new SetExpandItemCallBack() {
+			@Override
+			public void setExpandItem(int itemNum) {
+				MobileNetStatus.expandItemNum = itemNum;
+				if (adapter == null) {
+					adapter = new CourseSylibusExpandAdapter(courseSyllabusList);
+				}
+				adapter.notifyDataSetChanged();
+			}
+		});
 	}
 
 	private class CourseSylibusAsync extends AsyncTask<Void, Void, String> {
@@ -111,7 +132,6 @@ public class CourseSylibusFragment extends Fragment {
 							.parseObject(result);
 					com.alibaba.fastjson.JSONArray courseSylibusArray = com.alibaba.fastjson.JSONArray
 							.parseArray(courseSylibusJson.getString("d"));
-					List<CourseSyllabus> courseSyllabusList = new ArrayList<CourseSyllabus>();
 					CourseSyllabus courseSyllabus = null;
 					for (int i = 0; i < courseSylibusArray.size(); i++) {
 						String meetDate = courseSylibusArray.getJSONObject(i).getString("MeetDate");
@@ -134,8 +154,6 @@ public class CourseSylibusFragment extends Fragment {
 						}
 					}
 					if (courseSyllabusList.size() > 0) {
-						adapter = new CourseSylibusExpandAdapter(courseSyllabusList);
-						course_sylibus_list.setAdapter(adapter);
 						adapter.notifyDataSetChanged();
 					} else {
 						CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(
@@ -192,17 +210,21 @@ public class CourseSylibusFragment extends Fragment {
 				holder.teacher_name = (TextView) convertView.findViewById(R.id.teacher_name);
 				holder.lesson_topic = (TextView) convertView.findViewById(R.id.lesson_topic);
 				holder.classroom_number = (TextView) convertView.findViewById(R.id.classroom_number);
-				holder.expandable_toggle_button = (LinearLayout) convertView
-						.findViewById(R.id.expandable_toggle_button);
 				holder.expand_icon = (ImageView) convertView.findViewById(R.id.expand_icon);
 				holder.expand_icon_hidden = (ImageView) convertView.findViewById(R.id.expand_icon_hidden);
-				holder.expandable = (LinearLayout) convertView.findViewById(R.id.expandable);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			CourseSyllabus courseSyllabus = courseSyllabusList.get(position);
 			try {
+				if (MobileNetStatus.expandItemNum == position) {
+					holder.expand_icon.setVisibility(View.GONE);
+					holder.expand_icon_hidden.setVisibility(View.VISIBLE);
+				} else {
+					holder.expand_icon.setVisibility(View.VISIBLE);
+					holder.expand_icon_hidden.setVisibility(View.GONE);
+				}
 				Date timeStart = new Date(Long.valueOf(courseSyllabus.getMeetStart()));
 				Date timeEnd = new Date(Long.valueOf(courseSyllabus.getMeetEnd()));
 				holder.start_end_time.setText(formatTime.format(timeEnd) + " - " + formatTime.format(timeStart));
@@ -240,17 +262,6 @@ public class CourseSylibusFragment extends Fragment {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			String toggle_tag = (String) holder.expandable_toggle_button.getTag();
-			System.out.println("==========>" + toggle_tag);
-			// System.out.println("---====-->" +
-			// (holder.expandable.getVisibility() == View.VISIBLE));
-			// if (holder.expandable.getVisibility() == View.VISIBLE) {
-			// holder.expand_icon.setVisibility(View.GONE);
-			// holder.expand_icon_hidden.setVisibility(View.VISIBLE);
-			// } else {
-			// holder.expand_icon.setVisibility(View.VISIBLE);
-			// holder.expand_icon_hidden.setVisibility(View.GONE);
-			// }
 			holder.class_number.setText(courseSyllabus.getMeetClassNum());
 			holder.teacher_name.setText(courseSyllabus.getMeetTeacher());
 			holder.lesson_topic.setText(courseSyllabus.getMeetTopic());
@@ -265,10 +276,8 @@ public class CourseSylibusFragment extends Fragment {
 			TextView teacher_name;
 			TextView lesson_topic;
 			TextView classroom_number;
-			LinearLayout expandable_toggle_button;
 			ImageView expand_icon;
 			ImageView expand_icon_hidden;
-			LinearLayout expandable;
 		}
 	}
 }
