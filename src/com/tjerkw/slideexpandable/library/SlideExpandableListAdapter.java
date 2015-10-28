@@ -1,9 +1,9 @@
 package com.tjerkw.slideexpandable.library;
 
-import com.lb.jbt.R;
-
 import android.view.View;
 import android.widget.ListAdapter;
+
+import com.lb.jbt.R;
 
 /**
  * ListAdapter that adds sliding functionality to a list. Uses

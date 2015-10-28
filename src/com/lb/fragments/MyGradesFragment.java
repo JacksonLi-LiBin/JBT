@@ -1,12 +1,9 @@
 package com.lb.fragments;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.lb.constants.MobileNetStatus;
-import com.lb.jbt.LoginActivity;
-import com.lb.jbt.R;
-import com.lb.request.GetMyGradesClient;
-
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,10 +15,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.lb.constants.MobileNetStatus;
+import com.lb.jbt.LoginActivity;
+import com.lb.jbt.R;
+import com.lb.request.GetMyGradesClient;
 
 public class MyGradesFragment extends Fragment {
 	private SharedPreferences spf = null;

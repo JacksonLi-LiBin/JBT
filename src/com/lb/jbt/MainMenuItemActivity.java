@@ -15,6 +15,7 @@ import com.lb.entities.FriendSelected;
 import com.lb.fragments.ChangePasswordFragment;
 import com.lb.fragments.ContactUsFragment;
 import com.lb.fragments.CourseSylibusFragment;
+import com.lb.fragments.JobsFragment;
 import com.lb.fragments.MyGradesFragment;
 import com.lb.fragments.RecommendFriendFragment;
 
@@ -56,7 +57,10 @@ public class MainMenuItemActivity extends Activity {
 
 			break;
 		case 3:
-
+			// get my jobs
+			fragment = new JobsFragment();
+			transaction.replace(R.id.menuItemFragment, fragment, "jobs");
+			transaction.commit();
 			break;
 		case 4:
 			// recommend friend

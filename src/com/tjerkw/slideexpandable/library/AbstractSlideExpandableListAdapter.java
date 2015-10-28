@@ -2,9 +2,6 @@ package com.tjerkw.slideexpandable.library;
 
 import java.util.BitSet;
 
-import com.lb.fragments.CourseSylibusFragment;
-import com.lb.jbt.R;
-
 import android.graphics.Rect;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -19,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.lb.fragments.CourseSylibusFragment;
+import com.lb.jbt.R;
 
 /**
  * Wraps a ListAdapter to give it expandable list view functionality. The main

@@ -7,19 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import com.lb.constants.MobileNetStatus;
-import com.lb.entities.CourseSyllabus;
-import com.lb.jbt.LoginActivity;
-import com.lb.jbt.R;
-import com.lb.tools.ReadProperties;
-import com.lb.widgets.CustomAlertDialog;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.tjerkw.slideexpandable.library.AbstractSlideExpandableListAdapter.SetExpandItemCallBack;
-import com.tjerkw.slideexpandable.library.ActionSlideExpandableListView;
-
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
@@ -34,6 +21,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lb.constants.MobileNetStatus;
+import com.lb.entities.CourseSyllabus;
+import com.lb.jbt.LoginActivity;
+import com.lb.jbt.R;
+import com.lb.tools.ReadProperties;
+import com.lb.widgets.CustomAlertDialog;
+import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.tjerkw.slideexpandable.library.AbstractSlideExpandableListAdapter.SetExpandItemCallBack;
+import com.tjerkw.slideexpandable.library.ActionSlideExpandableListView;
 
 public class CourseSylibusFragment extends Fragment {
 	private SharedPreferences spf = null;

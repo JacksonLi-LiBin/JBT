@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">JBT</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -88,5 +89,7 @@
     <string name="subject_title">נושא</string>
     <string name="average_title">ממוצע ציונים</string>
     <string name="average_init_value">0</string>
+    <!-- jobs -->
+    <string name="jobs_title">לוח דר</string>
 
 </resources>
