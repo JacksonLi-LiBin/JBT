@@ -10,8 +10,8 @@
         android:layout_weight="1"
         android:background="@color/white_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/login_item_padding"
-        android:paddingRight="@dimen/login_item_padding" >
+        android:paddingLeft="@dimen/main_menu_item_padding"
+        android:paddingRight="@dimen/main_menu_item_padding" >
 
         <ImageView
             android:layout_width="match_parent"
@@ -23,20 +23,20 @@
             android:id="@+id/right_menu_btn"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:onClick="backToMainNenu"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/main_bg_img_des"
+            android:onClick="backToMainNenu"
             android:src="@drawable/menu" />
 
         <ImageView
             android:id="@+id/left_ope_btn"
-            android:onClick="ownOperation"
-            android:layout_width="27dp"
-            android:layout_height="33dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/main_bg_img_des" />
+            android:contentDescription="@string/main_bg_img_des"
+            android:onClick="ownOperation" />
     </RelativeLayout>
 
     <LinearLayout

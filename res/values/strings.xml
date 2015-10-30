@@ -91,5 +91,7 @@
     <string name="average_init_value">0</string>
     <!-- jobs -->
     <string name="jobs_title">לוח דר</string>
+    <!-- jobs filter -->
+    <string name="jobs_filter_title">סנן משרות</string>
 
 </resources>

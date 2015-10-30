@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grew_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/login_item_padding"
+    android:paddingRight="@dimen/login_item_padding" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/main_menu_item_padding"
+        android:paddingRight="@dimen/main_menu_item_padding" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/main_bg_img_des"
+            android:src="@drawable/logo" />
+
+        <ImageView
+            android:id="@+id/right_menu_btn"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/main_bg_img_des"
+            android:src="@drawable/menu" />
+
+        <ImageView
+            android:id="@+id/left_ope_btn"
+            android:layout_width="27dp"
+            android:layout_height="33dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/main_bg_img_des"
+            android:src="@drawable/back" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_title"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@color/deep_grew_bg"
+            android:gravity="center_vertical" >
+
+            <TextView
+                style="@style/menu_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/jobs_filter_title" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/main_menu_item_padding"
+                android:contentDescription="@string/main_bg_img_des"
+                android:src="@drawable/filter_header" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>
