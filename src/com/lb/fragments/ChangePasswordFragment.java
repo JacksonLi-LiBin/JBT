@@ -46,8 +46,8 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		spf = ChangePasswordFragment.this.getActivity().getSharedPreferences("jbt",
-				ChangePasswordFragment.this.getActivity().MODE_PRIVATE);
+		spf = ChangePasswordFragment.this.getActivity().getSharedPreferences(
+				"jbt", ChangePasswordFragment.this.getActivity().MODE_PRIVATE);
 		// manager = getFragmentManager();
 		// transaction = manager.beginTransaction();
 		// Bundle bundle =
@@ -57,9 +57,12 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.change_password_fragment, container, false);
-		sv_change_password = (ScrollView) view.findViewById(R.id.sv_change_password);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.change_password_fragment,
+				container, false);
+		sv_change_password = (ScrollView) view
+				.findViewById(R.id.sv_change_password);
 		sv_change_password.setOnTouchListener(this);
 		old_pwd_hint = (TextView) view.findViewById(R.id.old_pwd_hint);
 		new_pwd_hint = (TextView) view.findViewById(R.id.new_pwd_hint);
@@ -70,8 +73,10 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 		change_pwd_btn = (Button) view.findViewById(R.id.change_pwd_btn);
 		old_pwd.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				old_pwd_hint.setTextColor(getResources().getColor(R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				old_pwd_hint.setTextColor(getResources().getColor(
+						R.color.hint_text));
 				if (s.toString().length() == 0) {
 					old_pwd_hint.setVisibility(View.VISIBLE);
 				} else {
@@ -80,7 +85,8 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
@@ -91,8 +97,10 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 		});
 		new_pwd.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				new_pwd_hint.setHintTextColor(getResources().getColor(R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				new_pwd_hint.setHintTextColor(getResources().getColor(
+						R.color.hint_text));
 				if (s.toString().length() == 0) {
 					new_pwd_hint.setVisibility(View.VISIBLE);
 				} else {
@@ -101,7 +109,8 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
@@ -112,8 +121,10 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 		});
 		confirm_pwd.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				confirm_pwd_hint.setTextColor(getResources().getColor(R.color.hint_text));
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				confirm_pwd_hint.setTextColor(getResources().getColor(
+						R.color.hint_text));
 				if (s.toString().length() == 0) {
 					confirm_pwd_hint.setVisibility(View.VISIBLE);
 				} else {
@@ -122,7 +133,8 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
@@ -136,38 +148,49 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 			public void onClick(View v) {
 				if (MobileNetStatus.isNetUsable) {
 					int ret = 1;
-					old_pwd_hint.setTextColor(getResources().getColor(R.color.hint_text));
-					new_pwd_hint.setHintTextColor(getResources().getColor(R.color.hint_text));
-					confirm_pwd_hint.setTextColor(getResources().getColor(R.color.hint_text));
+					old_pwd_hint.setTextColor(getResources().getColor(
+							R.color.hint_text));
+					new_pwd_hint.setHintTextColor(getResources().getColor(
+							R.color.hint_text));
+					confirm_pwd_hint.setTextColor(getResources().getColor(
+							R.color.hint_text));
 					if (old_pwd.getText().toString().length() <= 0) {
 						ret = -1;
-						old_pwd_hint.setTextColor(getResources().getColor(R.color.red_light));
+						old_pwd_hint.setTextColor(getResources().getColor(
+								R.color.red_light));
 						return;
 					} else if (new_pwd.getText().toString().length() <= 0) {
 						ret = -1;
-						new_pwd_hint.setTextColor(getResources().getColor(R.color.red_light));
+						new_pwd_hint.setTextColor(getResources().getColor(
+								R.color.red_light));
 						return;
 					} else if (confirm_pwd.getText().toString().length() <= 0) {
 						ret = -1;
-						confirm_pwd_hint.setTextColor(getResources().getColor(R.color.red_light));
+						confirm_pwd_hint.setTextColor(getResources().getColor(
+								R.color.red_light));
 						return;
 					}
 					if (new_pwd.getText().toString().trim().length() < 8
 							|| new_pwd.getText().toString().trim().length() > 12) {
 						ret = -1;
 						CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(
-								ChangePasswordFragment.this.getActivity(), false);
-						builder.setDialogText(getResources().getString(R.string.pwd_length_noti));
+								ChangePasswordFragment.this.getActivity(),
+								false);
+						builder.setDialogText(getResources().getString(
+								R.string.pwd_length_noti));
 						Dialog dialog = builder.create();
 						dialog.setCancelable(false);
 						dialog.show();
 						return;
 					}
-					if (!new_pwd.getText().toString().trim().equals(confirm_pwd.getText().toString().trim())) {
+					if (!new_pwd.getText().toString().trim()
+							.equals(confirm_pwd.getText().toString().trim())) {
 						ret = -1;
 						CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(
-								ChangePasswordFragment.this.getActivity(), false);
-						builder.setDialogText(getResources().getString(R.string.different_new_pwd));
+								ChangePasswordFragment.this.getActivity(),
+								false);
+						builder.setDialogText(getResources().getString(
+								R.string.different_new_pwd));
 						Dialog dialog = builder.create();
 						dialog.setCancelable(false);
 						dialog.show();
@@ -179,7 +202,8 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 				} else {
 					// network is unavailable
 					Toast.makeText(ChangePasswordFragment.this.getActivity(),
-							getResources().getString(R.string.net_unusable), Toast.LENGTH_SHORT).show();
+							getResources().getString(R.string.net_unusable),
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -205,9 +229,16 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 		@Override
 		protected String doInBackground(Void... params) {
 			try {
-				HttpUrl url = HttpUrl.parse(ReadProperties.read("url", "jackson_ad_login_cp") + "User/" + storedToken
-						+ "/changePassword?userId=" + userId + "&oldPwd=" + old_pwd.getText().toString().trim()
-						+ "&newPwd=" + new_pwd.getText().toString().trim());
+				HttpUrl url = HttpUrl.parse(ReadProperties.read("url",
+						"jackson_ad_login_cp")
+						+ "User/"
+						+ storedToken
+						+ "/changePassword?userId="
+						+ userId
+						+ "&oldPwd="
+						+ old_pwd.getText().toString().trim()
+						+ "&newPwd="
+						+ new_pwd.getText().toString().trim());
 				Request request = new Request.Builder().url(url).build();
 				Response response = okHttpClient.newCall(request).execute();
 				if (response.isSuccessful()) {
@@ -224,8 +255,10 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			if (result.equals("true")) {
-				builder = new CustomAlertDialog.Builder(ChangePasswordFragment.this.getActivity(), true);
-				builder.setDialogText(getResources().getString(R.string.change_success_text));
+				builder = new CustomAlertDialog.Builder(
+						ChangePasswordFragment.this.getActivity(), true);
+				builder.setDialogText(getResources().getString(
+						R.string.change_success_text));
 				builder.setPosiClickListener(new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -237,30 +270,36 @@ public class ChangePasswordFragment extends Fragment implements OnTouchListener 
 				dialog.setCancelable(false);
 				dialog.show();
 			} else if (result.equals("false")) {
-				builder = new CustomAlertDialog.Builder(ChangePasswordFragment.this.getActivity(), false);
-				builder.setDialogText(getResources().getString(R.string.change_failed_text));
+				builder = new CustomAlertDialog.Builder(
+						ChangePasswordFragment.this.getActivity(), false);
+				builder.setDialogText(getResources().getString(
+						R.string.change_failed_text));
 				dialog = builder.create();
 				dialog.setCancelable(false);
 				dialog.show();
 			} else if (result.equals("timeout")) {
-				ActivityCompat.finishAffinity(ChangePasswordFragment.this.getActivity());
-				Intent intent = new Intent(ChangePasswordFragment.this.getActivity(), LoginActivity.class);
+				ActivityCompat.finishAffinity(ChangePasswordFragment.this
+						.getActivity());
+				Intent intent = new Intent(
+						ChangePasswordFragment.this.getActivity(),
+						LoginActivity.class);
 				startActivity(intent);
 				// ChangePasswordFragment.this.getActivity().finish();
 				// ((MainMenuActivity)
 				// ChangePasswordFragment.this.getActivity()).finish();
 				Toast.makeText(ChangePasswordFragment.this.getActivity(),
-						getResources().getString(R.string.ope_time_out), Toast.LENGTH_SHORT).show();
+						getResources().getString(R.string.ope_time_out),
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		InputMethodManager imm = (InputMethodManager) ChangePasswordFragment.this.getActivity()
-				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromInputMethod(ChangePasswordFragment.this.getActivity().getCurrentFocus().getWindowToken(),
-				0);
+		InputMethodManager imm = (InputMethodManager) ChangePasswordFragment.this
+				.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromInputMethod(ChangePasswordFragment.this
+				.getActivity().getCurrentFocus().getWindowToken(), 0);
 		return false;
 	}
 }
