@@ -29,10 +29,9 @@ import com.lb.constants.MobileNetStatus;
 import com.lb.entities.Job;
 import com.lb.jbt.JobsFileterActivity;
 import com.lb.jbt.LoginActivity;
-import com.lb.jbt.MainMenuItemActivity;
 import com.lb.jbt.MainMenuItemActivity.FilterJobsCallBack;
 import com.lb.jbt.R;
-import com.lb.request.GetJobsClient;
+import com.lb.request.GetJobsTitleClient;
 import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
@@ -67,7 +66,8 @@ public class JobsFragment extends Fragment {
 			public void onClick(View v) {
 				Intent intent = new Intent(JobsFragment.this.getActivity(),
 						JobsFileterActivity.class);
-				startActivityForResult(intent, FILTER_REQUEST_CODE);
+				JobsFragment.this.getActivity().startActivityForResult(intent,
+						FILTER_REQUEST_CODE);
 			}
 		});
 	}
@@ -83,7 +83,7 @@ public class JobsFragment extends Fragment {
 		animationAdapter.setAbsListView(dynamicListview);
 		dynamicListview.setAdapter(animationAdapter);
 		if (MobileNetStatus.isNetUsable) {
-			Call<String> getJobsCall = GetJobsClient.getGetJobsService()
+			Call<String> getJobsCall = GetJobsTitleClient.getGetJobsService()
 					.getJobs(storedToken);
 			getJobsCall.enqueue(new Callback<String>() {
 
@@ -188,16 +188,19 @@ public class JobsFragment extends Fragment {
 		}
 	}
 
-	private void updateJobsList(List<Job> jobsList, FilterJobsCallBack action) {
-		action.updateJobs(jobsList);
+	private void updateJobsList(List<String> areaFilters,
+			List<String> domainFilters, FilterJobsCallBack action) {
+		action.updateJobs();
 	}
 
-	public void updateJobs(List<Job> jobsList) {
-		updateJobsList(jobsList, new FilterJobsCallBack() {
+	public void updateJobs(final List<String> areaFilters,
+			final List<String> domainFilters) {
+		updateJobsList(areaFilters, domainFilters, new FilterJobsCallBack() {
 			@Override
-			public void updateJobs(List<Job> filterJobs) {
-				filterList = filterJobs;
-				adapter.notifyDataSetChanged();
+			public void updateJobs() {
+				System.out.println(areaFilters + "--------" + domainFilters);
+				// filterList = filterJobs;
+				// adapter.notifyDataSetChanged();
 			}
 		});
 	}

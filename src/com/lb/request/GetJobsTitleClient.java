@@ -4,17 +4,17 @@ import retrofit.Retrofit;
 
 import com.lb.tools.ReadProperties;
 
-public class GetJobsClient {
-	private static GetJobsService getJobsService;
+public class GetJobsTitleClient {
+	private static GetJobsTitleService getJobsService;
 
-	public static GetJobsService getGetJobsService() {
+	public static GetJobsTitleService getGetJobsService() {
 		if (getJobsService == null) {
 			Retrofit retrofit = new Retrofit.Builder()
 					.client(GetOkHttpClient.getOkHttpClient())
 					.baseUrl(ReadProperties.read("url", "jackson_job_getjobs"))
 					.addConverterFactory(new ToStringConverterFactory())
 					.build();
-			getJobsService = retrofit.create(GetJobsService.class);
+			getJobsService = retrofit.create(GetJobsTitleService.class);
 		}
 		return getJobsService;
 	}

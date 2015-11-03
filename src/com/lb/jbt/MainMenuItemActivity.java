@@ -1,6 +1,5 @@
 package com.lb.jbt;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -15,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lb.entities.FriendSelected;
-import com.lb.entities.Job;
 import com.lb.fragments.ChangePasswordFragment;
 import com.lb.fragments.ContactUsFragment;
 import com.lb.fragments.CourseSylibusFragment;
@@ -129,7 +127,6 @@ public class MainMenuItemActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		System.out.println("--------------------------");
 		switch (requestCode) {
 		case 1:
 			if (data != null) {
@@ -156,9 +153,16 @@ public class MainMenuItemActivity extends Activity {
 			break;
 		case 2:
 			if (data != null) {
-				List<Job> filterJobsList = new ArrayList<Job>();
-				JobsFragment jobsFragment = new JobsFragment();
-				jobsFragment.updateJobs(filterJobsList);
+				Bundle bundle = data.getExtras();
+				List<String> areasList = bundle.getStringArrayList("areasList");
+				List<String> domainsList = bundle
+						.getStringArrayList("domainsList");
+				if (areasList.size() == 0 && domainsList.size() == 0) {
+
+				} else {
+					JobsFragment jobsFragment = new JobsFragment();
+					jobsFragment.updateJobs(areasList, domainsList);
+				}
 			}
 			break;
 		default:
@@ -167,6 +171,6 @@ public class MainMenuItemActivity extends Activity {
 	}
 
 	public interface FilterJobsCallBack {
-		public void updateJobs(List<Job> filterJobs);
+		public void updateJobs();
 	}
 }

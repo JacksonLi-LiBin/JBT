@@ -93,5 +93,7 @@
     <string name="jobs_title">לוח דר</string>
     <!-- jobs filter -->
     <string name="jobs_filter_title">סנן משרות</string>
+    <string name="area_title">בחר תחום</string>
+    <string name="domain_title">בחר אזור</string>
 
 </resources>

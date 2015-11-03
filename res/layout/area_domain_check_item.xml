@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_btn_height"
+        android:background="@drawable/contacts_items_border"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/filter_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="sss"
+                android:textSize="@dimen/type_text_size" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/filter_item_img"
+                android:layout_width="@dimen/filter_check"
+                android:layout_height="@dimen/filter_check"
+                android:contentDescription="@string/main_bg_img_des"
+                android:src="@drawable/filter_uncheck" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
