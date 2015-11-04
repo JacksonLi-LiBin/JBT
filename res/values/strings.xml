@@ -95,5 +95,9 @@
     <string name="jobs_filter_title">סנן משרות</string>
     <string name="area_title">בחר תחום</string>
     <string name="domain_title">בחר אזור</string>
+    <string name="check_all">כל התחומים</string>
+    <string name="filter_checked_des">checked</string>
+    <string name="filter_uncheck_des">uncheck</string>
+    <string name="filter_img_tag">filter_img_tag</string>
 
 </resources>

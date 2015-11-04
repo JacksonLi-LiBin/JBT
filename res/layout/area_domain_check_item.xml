@@ -36,8 +36,9 @@
                 android:id="@+id/filter_item_img"
                 android:layout_width="@dimen/filter_check"
                 android:layout_height="@dimen/filter_check"
-                android:contentDescription="@string/main_bg_img_des"
-                android:src="@drawable/filter_uncheck" />
+                android:contentDescription="@string/filter_uncheck_des"
+                android:src="@drawable/filter_uncheck"
+                android:tag="@string/filter_img_tag" />
         </LinearLayout>
     </LinearLayout>
 
