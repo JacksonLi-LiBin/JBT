@@ -1,9 +1,7 @@
 package com.lb.jbt;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONObject;
 
@@ -14,7 +12,6 @@ import retrofit.Retrofit;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +35,7 @@ public class JobsFileterActivity extends Activity {
 	private ImageView right_menu_btn, left_ope_btn;
 	private List<String> areasList = null;
 	private List<String> domainsList = null;
-	private LinearLayout area_items, domain_items;
+	private LinearLayout area_items, domain_items, area_more, domain_more;
 	private List<ImageView> areasFilterImg, domainsFilterImg;
 
 	@Override
@@ -55,6 +53,8 @@ public class JobsFileterActivity extends Activity {
 		left_ope_btn = (ImageView) findViewById(R.id.left_ope_btn);
 		area_items = (LinearLayout) findViewById(R.id.area_items);
 		domain_items = (LinearLayout) findViewById(R.id.domain_items);
+		area_more = (LinearLayout) findViewById(R.id.area_more);
+		domain_more = (LinearLayout) findViewById(R.id.domain_more);
 		right_menu_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -110,326 +110,13 @@ public class JobsFileterActivity extends Activity {
 											.get("Domain"));
 							// area filter exist
 							if (areas.size() > 0) {
-								showFilters(
-										areas.size() >= 2 ? 2 : areas.size(),
-										areasFilterImg, area_items, areas);
-								// LinearLayout layout = (LinearLayout)
-								// layoutInflater
-								// .inflate(
-								// R.layout.area_domain_check_item,
-								// null);
-								// TextView filter_item_title = (TextView)
-								// layout
-								// .findViewById(R.id.filter_item_title);
-								// ImageView filter_item_img = (ImageView)
-								// layout
-								// .findViewById(R.id.filter_item_img);
-								// areasFilterImg.add(filter_item_img);
-								// filter_item_title
-								// .setText(JobsFileterActivity.this
-								// .getResources().getString(
-								// R.string.check_all));
-								// filter_item_img
-								// .setOnClickListener(new
-								// View.OnClickListener() {
-								// @Override
-								// public void onClick(View v) {
-								// ImageView iv = (ImageView) v;
-								// String imageDes = (String) iv
-								// .getContentDescription();
-								// if (imageDes.equals("checked")) {
-								// for (ImageView imageView : areasFilterImg) {
-								// imageView
-								// .setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_uncheck_des));
-								// imageView
-								// .setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_uncheck));
-								// }
-								// } else {
-								// for (ImageView imageView : areasFilterImg) {
-								// imageView
-								// .setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_checked_des));
-								// imageView
-								// .setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_check));
-								// }
-								// }
-								// }
-								// });
-								// area_items.addView(layout);
-								// if (areas.size() >= 2) {
-								// for (int i = 0; i < 2; i++) {
-								// layout = (LinearLayout) layoutInflater
-								// .inflate(
-								// R.layout.area_domain_check_item,
-								// null);
-								// filter_item_title = (TextView) layout
-								// .findViewById(R.id.filter_item_title);
-								// filter_item_img = (ImageView) layout
-								// .findViewById(R.id.filter_item_img);
-								// areasFilterImg.add(filter_item_img);
-								// final String areaTitle = areas
-								// .getJSONObject(i).getString(
-								// "Title");
-								// filter_item_title.setText(areaTitle);
-								// filter_item_img
-								// .setOnClickListener(new
-								// View.OnClickListener() {
-								// @Override
-								// public void onClick(View v) {
-								// ImageView iv = (ImageView) v;
-								// String imageDes = (String) iv
-								// .getContentDescription();
-								// if (imageDes
-								// .equals("checked")) {
-								// iv.setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_uncheck));
-								// iv.setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_uncheck_des));
-								// } else {
-								// iv.setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_check));
-								// iv.setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_checked_des));
-								// }
-								// }
-								// });
-								// area_items.addView(layout);
-								// }
-								// } else {
-								// // one area filter
-								// layout = (LinearLayout) layoutInflater
-								// .inflate(
-								// R.layout.area_domain_check_item,
-								// null);
-								// filter_item_title = (TextView) layout
-								// .findViewById(R.id.filter_item_title);
-								// filter_item_img = (ImageView) layout
-								// .findViewById(R.id.filter_item_img);
-								// areasFilterImg.add(filter_item_img);
-								// final String areaTitle = areas
-								// .getJSONObject(0)
-								// .getString("Title");
-								// filter_item_title.setText(areaTitle);
-								// filter_item_img
-								// .setOnClickListener(new
-								// View.OnClickListener() {
-								// @Override
-								// public void onClick(View v) {
-								// ImageView iv = (ImageView) v;
-								// String imageDes = (String) iv
-								// .getContentDescription();
-								// if (imageDes
-								// .equals("checked")) {
-								// iv.setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_uncheck));
-								// iv.setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_uncheck_des));
-								// } else {
-								// iv.setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_check));
-								// iv.setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_checked_des));
-								// }
-								// }
-								// });
-								// area_items.addView(layout);
-								// }
+								showFilters(areasFilterImg, area_items,
+										area_more, areas, "area");
 							}
 							// domain filter exist
 							if (domains.size() > 0) {
-								showFilters(
-										domains.size() >= 2 ? 2 : domains
-												.size(), domainsFilterImg,
-										domain_items, domains);
-								// LinearLayout layout = (LinearLayout)
-								// layoutInflater
-								// .inflate(
-								// R.layout.area_domain_check_item,
-								// null);
-								// TextView filter_item_title = (TextView)
-								// layout
-								// .findViewById(R.id.filter_item_title);
-								// ImageView filter_item_img = (ImageView)
-								// layout
-								// .findViewById(R.id.filter_item_img);
-								// domainsFilterImg.add(filter_item_img);
-								// filter_item_title
-								// .setText(JobsFileterActivity.this
-								// .getResources().getString(
-								// R.string.check_all));
-								// filter_item_img
-								// .setOnClickListener(new
-								// View.OnClickListener() {
-								// @Override
-								// public void onClick(View v) {
-								// ImageView iv = (ImageView) v;
-								// String imageDes = (String) iv
-								// .getContentDescription();
-								// if (imageDes.equals("checked")) {
-								// for (ImageView imageView : domainsFilterImg)
-								// {
-								// imageView
-								// .setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_uncheck_des));
-								// imageView
-								// .setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_uncheck));
-								// }
-								// } else {
-								// for (ImageView imageView : domainsFilterImg)
-								// {
-								// imageView
-								// .setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_checked_des));
-								// imageView
-								// .setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_check));
-								// }
-								// }
-								// }
-								// });
-								// domain_items.addView(layout);
-								// if (domains.size() >= 2) {
-								// for (int i = 0; i < 2; i++) {
-								// layout = (LinearLayout) layoutInflater
-								// .inflate(
-								// R.layout.area_domain_check_item,
-								// null);
-								// filter_item_title = (TextView) layout
-								// .findViewById(R.id.filter_item_title);
-								// filter_item_img = (ImageView) layout
-								// .findViewById(R.id.filter_item_img);
-								// domainsFilterImg.add(filter_item_img);
-								// final String domainTitle = domains
-								// .getJSONObject(i).getString(
-								// "Title");
-								// filter_item_title.setText(domainTitle);
-								// filter_item_img
-								// .setOnClickListener(new
-								// View.OnClickListener() {
-								// @Override
-								// public void onClick(View v) {
-								// ImageView iv = (ImageView) v;
-								// String imageDes = (String) iv
-								// .getContentDescription();
-								// if (imageDes
-								// .equals("checked")) {
-								// iv.setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_uncheck));
-								// iv.setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_uncheck_des));
-								// } else {
-								// iv.setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_check));
-								// iv.setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_checked_des));
-								// }
-								// }
-								// });
-								// domain_items.addView(layout);
-								// }
-								// } else {
-								// // one area filter
-								// layout = (LinearLayout) layoutInflater
-								// .inflate(
-								// R.layout.area_domain_check_item,
-								// null);
-								// filter_item_title = (TextView) layout
-								// .findViewById(R.id.filter_item_title);
-								// filter_item_img = (ImageView) layout
-								// .findViewById(R.id.filter_item_img);
-								// domainsFilterImg.add(filter_item_img);
-								// final String domainTitle = domains
-								// .getJSONObject(0)
-								// .getString("Title");
-								// filter_item_title.setText(domainTitle);
-								// filter_item_img
-								// .setOnClickListener(new
-								// View.OnClickListener() {
-								// @Override
-								// public void onClick(View v) {
-								// ImageView iv = (ImageView) v;
-								// String imageDes = (String) iv
-								// .getContentDescription();
-								// if (imageDes
-								// .equals("checked")) {
-								// iv.setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_uncheck));
-								// iv.setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_uncheck_des));
-								// } else {
-								// iv.setImageBitmap(BitmapFactory
-								// .decodeResource(
-								// JobsFileterActivity.this
-								// .getResources(),
-								// R.drawable.filter_check));
-								// iv.setContentDescription(JobsFileterActivity.this
-								// .getResources()
-								// .getString(
-								// R.string.filter_checked_des));
-								// }
-								// }
-								// });
-								// domain_items.addView(layout);
-								// }
+								showFilters(domainsFilterImg, domain_items,
+										domain_more, domains, "domain");
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -450,8 +137,9 @@ public class JobsFileterActivity extends Activity {
 		}
 	}
 
-	public void showFilters(int showItems, final List<ImageView> filterImages,
-			LinearLayout parentLayout, JSONArray jsonArray) {
+	public void showFilters(final List<ImageView> filterImages,
+			final LinearLayout parentLayout, LinearLayout more_layout,
+			final JSONArray jsonArray, final String filterType) {
 		LinearLayout layout = (LinearLayout) layoutInflater.inflate(
 				R.layout.area_domain_check_item, null);
 		TextView filter_item_title = (TextView) layout
@@ -475,6 +163,11 @@ public class JobsFileterActivity extends Activity {
 						imageView.setImageBitmap(BitmapFactory.decodeResource(
 								JobsFileterActivity.this.getResources(),
 								R.drawable.filter_uncheck));
+						if (filterType.equals("area")) {
+							areasList.clear();
+						} else {
+							domainsList.clear();
+						}
 					}
 				} else {
 					for (ImageView imageView : filterImages) {
@@ -486,14 +179,30 @@ public class JobsFileterActivity extends Activity {
 								JobsFileterActivity.this.getResources(),
 								R.drawable.filter_check));
 					}
+					if (filterType.equals("area")) {
+						areasList.clear();
+						for (int i = 0; i < jsonArray.size(); i++) {
+							String filterTitle = jsonArray.getJSONObject(i)
+									.getString("Title");
+							areasList.add(filterTitle);
+						}
+					} else {
+						domainsList.clear();
+						for (int i = 0; i < jsonArray.size(); i++) {
+							String filterTitle = jsonArray.getJSONObject(i)
+									.getString("Title");
+							domainsList.add(filterTitle);
+						}
+					}
+
 				}
 			}
 		});
 		parentLayout.addView(layout);
-		for (int i = 0; i < showItems; i++) {
+		for (int i = 0; i < jsonArray.size(); i++) {
 			layout = (LinearLayout) layoutInflater.inflate(
 					R.layout.area_domain_check_item, null);
-			if (i == (showItems - 1)) {
+			if (i == 1) {
 				LinearLayout linearLayout = (LinearLayout) layout.getChildAt(0);
 				linearLayout.setBackgroundColor(JobsFileterActivity.this
 						.getResources().getColor(R.color.white_bg));
@@ -503,9 +212,9 @@ public class JobsFileterActivity extends Activity {
 			filter_item_img = (ImageView) layout
 					.findViewById(R.id.filter_item_img);
 			filterImages.add(filter_item_img);
-			final String areaTitle = jsonArray.getJSONObject(i).getString(
+			final String filterTitle = jsonArray.getJSONObject(i).getString(
 					"Title");
-			filter_item_title.setText(areaTitle);
+			filter_item_title.setText(filterTitle);
 			filter_item_img.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -533,6 +242,11 @@ public class JobsFileterActivity extends Activity {
 													.getResources(),
 											R.drawable.filter_uncheck));
 						}
+						if (filterType.equals("area")) {
+							areasList.remove(filterTitle);
+						} else {
+							domainsList.remove(filterTitle);
+						}
 					} else {
 						iv.setImageBitmap(BitmapFactory.decodeResource(
 								JobsFileterActivity.this.getResources(),
@@ -540,10 +254,69 @@ public class JobsFileterActivity extends Activity {
 						iv.setContentDescription(JobsFileterActivity.this
 								.getResources().getString(
 										R.string.filter_checked_des));
+						if (filterType.equals("area")) {
+							areasList.add(filterTitle);
+						} else {
+							domainsList.add(filterTitle);
+						}
 					}
 				}
 			});
 			parentLayout.addView(layout);
+			if (i >= 2) {
+				layout.setVisibility(View.GONE);
+			}
 		}
+		LinearLayout more_btn_layout = (LinearLayout) layoutInflater.inflate(
+				R.layout.area_domain_more_btn, null);
+		final LinearLayout slidedown_more_items_btn = (LinearLayout) more_btn_layout
+				.findViewById(R.id.slidedown_more_items_btn);
+		final RelativeLayout slideup_more_items_btn = (RelativeLayout) more_btn_layout
+				.findViewById(R.id.slideup_more_items_btn);
+		slidedown_more_items_btn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// show all items
+				for (int i = 0; i < parentLayout.getChildCount(); i++) {
+					LinearLayout childLayout = (LinearLayout) parentLayout
+							.getChildAt(i);
+					childLayout.getChildAt(0).setBackgroundDrawable(
+							JobsFileterActivity.this.getResources()
+									.getDrawable(
+											R.drawable.contacts_items_border));
+					if (i == (parentLayout.getChildCount() - 1)) {
+						childLayout.getChildAt(0).setBackgroundColor(
+								JobsFileterActivity.this.getResources()
+										.getColor(R.color.white_bg));
+					}
+					childLayout.setVisibility(View.VISIBLE);
+				}
+				slideup_more_items_btn.setVisibility(View.VISIBLE);
+				((LinearLayout) v).setVisibility(View.GONE);
+			}
+		});
+		slideup_more_items_btn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// collapse items
+				for (int i = 0; i < parentLayout.getChildCount(); i++) {
+					LinearLayout childLayout = (LinearLayout) parentLayout
+							.getChildAt(i);
+					if (i == 2) {
+						childLayout.getChildAt(0).setBackgroundColor(
+								JobsFileterActivity.this.getResources()
+										.getColor(R.color.white_bg));
+					}
+					if (i < 3) {
+						childLayout.setVisibility(View.VISIBLE);
+					} else {
+						childLayout.setVisibility(View.GONE);
+					}
+				}
+				slidedown_more_items_btn.setVisibility(View.VISIBLE);
+				((RelativeLayout) v).setVisibility(View.GONE);
+			}
+		});
+		more_layout.addView(more_btn_layout);
 	}
 }

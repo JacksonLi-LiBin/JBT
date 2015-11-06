@@ -38,6 +38,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:clipToPadding="false"
         android:divider="@color/light_grew_bg"
-        android:dividerHeight="@dimen/login_item_padding" />
+        android:dividerHeight="@dimen/login_item_padding"
+        android:scrollbars="none" />
 
 </LinearLayout>

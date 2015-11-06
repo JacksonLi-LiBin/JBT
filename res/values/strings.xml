@@ -99,5 +99,11 @@
     <string name="filter_checked_des">checked</string>
     <string name="filter_uncheck_des">uncheck</string>
     <string name="filter_img_tag">filter_img_tag</string>
+    <string name="slidedown_more">עוד</string>
+    <string name="slideup_more">קריסה</string>
+    <!-- job details -->
+    <string name="location_title">:מיקום</string>
+    <string name="experience_title">:שנות ניסיון</string>
+    <string name="requirements_title">:דרישות המשרה</string>
 
 </resources>

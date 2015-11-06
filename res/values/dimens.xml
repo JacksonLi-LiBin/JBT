@@ -11,6 +11,7 @@
     <dimen name="menu_item_title">60dp</dimen>
     <dimen name="main_menu_item_height">80dp</dimen>
     <dimen name="main_menu_item_padding">6dp</dimen>
+    <dimen name="neg_main_menu_item_padding">-6dp</dimen>
     <dimen name="title_text_size">30sp</dimen>
     <dimen name="type_text_size">16sp</dimen>
     <dimen name="contacts_text_size">12sp</dimen>

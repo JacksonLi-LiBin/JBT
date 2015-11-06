@@ -27,9 +27,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lb.constants.MobileNetStatus;
 import com.lb.entities.Job;
+import com.lb.jbt.JobDetailsActivity;
 import com.lb.jbt.JobsFileterActivity;
 import com.lb.jbt.LoginActivity;
-import com.lb.jbt.MainMenuItemActivity.FilterJobsCallBack;
 import com.lb.jbt.R;
 import com.lb.request.GetJobsTitleClient;
 import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
@@ -113,6 +113,8 @@ public class JobsFragment extends Fragment {
 							JSONObject jobObject = jobItems.getJSONObject(i);
 							job.setJobId(jobObject.getString("ID"));
 							job.setTitle(jobObject.getString("Title"));
+							job.setArea(jobObject.getString("Area"));
+							job.setDomain(jobObject.getString("Domain"));
 							originalList.add(job);
 						}
 						if (!withFilter) {
@@ -138,8 +140,11 @@ public class JobsFragment extends Fragment {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						System.out.println("---->"
-								+ filterList.get(position).getTitle());
+						Intent intent = new Intent(JobsFragment.this
+								.getActivity(), JobDetailsActivity.class);
+						intent.putExtra("jobId", filterList.get(position)
+								.getJobId());
+						JobsFragment.this.getActivity().startActivity(intent);
 					}
 				});
 		return view;
@@ -188,20 +193,13 @@ public class JobsFragment extends Fragment {
 		}
 	}
 
-	private void updateJobsList(List<String> areaFilters,
-			List<String> domainFilters, FilterJobsCallBack action) {
-		action.updateJobs();
+	public List<Job> getOriginalList() {
+		return originalList;
 	}
 
-	public void updateJobs(final List<String> areaFilters,
-			final List<String> domainFilters) {
-		updateJobsList(areaFilters, domainFilters, new FilterJobsCallBack() {
-			@Override
-			public void updateJobs() {
-				System.out.println(areaFilters + "--------" + domainFilters);
-				// filterList = filterJobs;
-				// adapter.notifyDataSetChanged();
-			}
-		});
+	public void setFilterList(List<Job> filterList) {
+		this.filterList = filterList;
+		adapter.notifyDataSetChanged();
 	}
+
 }

@@ -1,5 +1,7 @@
 package com.lb.jbt;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
@@ -7,13 +9,16 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lb.entities.FriendSelected;
+import com.lb.entities.Job;
 import com.lb.fragments.ChangePasswordFragment;
 import com.lb.fragments.ContactUsFragment;
 import com.lb.fragments.CourseSylibusFragment;
@@ -157,11 +162,25 @@ public class MainMenuItemActivity extends Activity {
 				List<String> areasList = bundle.getStringArrayList("areasList");
 				List<String> domainsList = bundle
 						.getStringArrayList("domainsList");
+				List<Job> list = ((JobsFragment) manager
+						.findFragmentByTag("jobs")).getOriginalList();
+				List<Job> filteredList = new ArrayList<Job>();
+				for (Job job : list) {
+					filteredList.add(job);
+				}
+				ImageView left_ope_btn = (ImageView) findViewById(R.id.left_ope_btn);
 				if (areasList.size() == 0 && domainsList.size() == 0) {
-
+					((JobsFragment) manager.findFragmentByTag("jobs"))
+							.setFilterList(filteredList);
+					left_ope_btn.setImageBitmap(BitmapFactory.decodeResource(
+							getResources(), R.drawable.filter));
 				} else {
-					JobsFragment jobsFragment = new JobsFragment();
-					jobsFragment.updateJobs(areasList, domainsList);
+					List<Job> filterList = updateJobs(filteredList, areasList,
+							domainsList);
+					((JobsFragment) manager.findFragmentByTag("jobs"))
+							.setFilterList(filterList);
+					left_ope_btn.setImageBitmap(BitmapFactory.decodeResource(
+							getResources(), R.drawable.filter_on));
 				}
 			}
 			break;
@@ -170,7 +189,45 @@ public class MainMenuItemActivity extends Activity {
 		}
 	}
 
-	public interface FilterJobsCallBack {
-		public void updateJobs();
+	private List<Job> updateJobs(List<Job> filterList,
+			List<String> areaFilters, List<String> domainFilters) {
+		try {
+			Iterator<Job> iteratorArea = filterList.iterator();
+			while (iteratorArea.hasNext()) {
+				if (areaFilters.size() > 0) {
+					int ret = -1;
+					Job job = iteratorArea.next();
+					for (String areaFilter : areaFilters) {
+						if (job.getArea().equals(areaFilter)) {
+							ret = 1;
+							continue;
+						}
+					}
+					if (ret == -1) {
+						iteratorArea.remove();
+					}
+				}
+			}
+			Iterator<Job> iteratorDomain = filterList.iterator();
+			while (iteratorDomain.hasNext()) {
+				if (areaFilters.size() > 0) {
+					int ret = -1;
+					Job job = iteratorDomain.next();
+					for (String areaFilter : areaFilters) {
+						if (job.getArea().equals(areaFilter)) {
+							ret = 1;
+							continue;
+						}
+					}
+					if (ret == -1) {
+						iteratorDomain.remove();
+					}
+				}
+			}
+			return filterList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

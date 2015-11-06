@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grew_bg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/login_item_padding"
+    android:paddingRight="@dimen/login_item_padding" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_item_title"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@color/deep_grew_bg"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/job_title"
+            style="@style/menu_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/jobs_title" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@color/white_bg"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dialog_text_padding"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/main_menu_item_padding"
+                    android:paddingTop="@dimen/main_menu_item_padding" >
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:contentDescription="@string/main_bg_img_des"
+                        android:src="@drawable/location" />
+
+                    <TextView
+                        android:id="@+id/location_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/main_menu_item_padding"
+                        android:layout_toLeftOf="@+id/textView1"
+                        android:text="ss" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/main_menu_item_padding"
+                        android:layout_toLeftOf="@+id/imageView1"
+                        android:text="@string/location_title"
+                        android:textColor="@color/red_light" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/main_menu_item_padding"
+                    android:paddingTop="@dimen/main_menu_item_padding" >
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:contentDescription="@string/main_bg_img_des"
+                        android:src="@drawable/experience" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/main_menu_item_padding"
+                        android:layout_toLeftOf="@+id/imageView2"
+                        android:text="@string/experience_title"
+                        android:textColor="@color/red_light" />
+
+                    <TextView
+                        android:id="@+id/experience_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/main_menu_item_padding"
+                        android:layout_toLeftOf="@+id/textView2"
+                        android:text="ss" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/main_menu_item_padding"
+                android:layout_marginRight="@dimen/main_menu_item_padding"
+                android:background="@color/light_grew_bg"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/job_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dialog_text_padding"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/main_menu_item_padding"
+                android:paddingTop="@dimen/main_menu_item_padding" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dialog_text_padding"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/main_menu_item_padding"
+                android:paddingTop="@dimen/main_menu_item_padding" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/main_menu_item_padding"
+                    android:paddingTop="@dimen/main_menu_item_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/requirements_title"
+                        android:textColor="@color/red_light" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/requirement_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/menu_item_title"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_grew_bg"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/send_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey_item_bg"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/main_menu_item_padding"
+                    android:paddingTop="@dimen/main_menu_item_padding" >
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
