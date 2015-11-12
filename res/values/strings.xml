@@ -105,5 +105,6 @@
     <string name="location_title">:מיקום</string>
     <string name="experience_title">:שנות ניסיון</string>
     <string name="requirements_title">:דרישות המשרה</string>
+    <string name="email_title">שליחת קו"ח אל</string>
 
 </resources>

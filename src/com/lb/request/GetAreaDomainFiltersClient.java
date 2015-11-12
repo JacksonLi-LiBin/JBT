@@ -1,8 +1,8 @@
 package com.lb.request;
 
-import com.lb.tools.ReadProperties;
-
 import retrofit.Retrofit;
+
+import com.lb.tools.ReadProperties;
 
 public class GetAreaDomainFiltersClient {
 	private static GetAreaDomainFiltersService areaDomainFiltersService;
