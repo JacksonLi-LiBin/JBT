@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.lb.entities.FriendSelected;
 import com.lb.entities.Job;
 import com.lb.fragments.ChangePasswordFragment;
+import com.lb.fragments.ChatFragment;
 import com.lb.fragments.ContactUsFragment;
 import com.lb.fragments.CourseSylibusFragment;
 import com.lb.fragments.JobsFragment;
@@ -50,8 +51,7 @@ public class MainMenuItemActivity extends Activity {
 		switch (itemType) {
 		case 0:
 			fragment = new CourseSylibusFragment();
-			transaction.replace(R.id.menuItemFragment, fragment,
-					"coursesylibus");
+			transaction.replace(R.id.menuItemFragment, fragment, "coursesylibus");
 			transaction.commit();
 			break;
 		case 1:
@@ -61,7 +61,10 @@ public class MainMenuItemActivity extends Activity {
 			transaction.commit();
 			break;
 		case 2:
-
+			// chat fragment
+			fragment = new ChatFragment();
+			transaction.replace(R.id.menuItemFragment, fragment, "chat");
+			transaction.commit();
 			break;
 		case 3:
 			// get my jobs
@@ -72,8 +75,7 @@ public class MainMenuItemActivity extends Activity {
 		case 4:
 			// recommend friend
 			fragment = new RecommendFriendFragment();
-			transaction.replace(R.id.menuItemFragment, fragment,
-					"recommendfriend");
+			transaction.replace(R.id.menuItemFragment, fragment, "recommendfriend");
 			transaction.commit();
 			break;
 		case 5:
@@ -136,8 +138,7 @@ public class MainMenuItemActivity extends Activity {
 		case 1:
 			if (data != null) {
 				Bundle bundle = data.getBundleExtra("sf");
-				FriendSelected friendSelected = (FriendSelected) bundle
-						.getSerializable("selectedFriend");
+				FriendSelected friendSelected = (FriendSelected) bundle.getSerializable("selectedFriend");
 				friend_name.setText("");
 				friend_phone.setText("");
 				friend_email.setText("");
@@ -160,27 +161,20 @@ public class MainMenuItemActivity extends Activity {
 			if (data != null) {
 				Bundle bundle = data.getExtras();
 				List<String> areasList = bundle.getStringArrayList("areasList");
-				List<String> domainsList = bundle
-						.getStringArrayList("domainsList");
-				List<Job> list = ((JobsFragment) manager
-						.findFragmentByTag("jobs")).getOriginalList();
+				List<String> domainsList = bundle.getStringArrayList("domainsList");
+				List<Job> list = ((JobsFragment) manager.findFragmentByTag("jobs")).getOriginalList();
 				List<Job> filteredList = new ArrayList<Job>();
 				for (Job job : list) {
 					filteredList.add(job);
 				}
 				ImageView left_ope_btn = (ImageView) findViewById(R.id.left_ope_btn);
 				if (areasList.size() == 0 && domainsList.size() == 0) {
-					((JobsFragment) manager.findFragmentByTag("jobs"))
-							.setFilterList(filteredList);
-					left_ope_btn.setImageBitmap(BitmapFactory.decodeResource(
-							getResources(), R.drawable.filter));
+					((JobsFragment) manager.findFragmentByTag("jobs")).setFilterList(filteredList);
+					left_ope_btn.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.filter));
 				} else {
-					List<Job> filterList = updateJobs(filteredList, areasList,
-							domainsList);
-					((JobsFragment) manager.findFragmentByTag("jobs"))
-							.setFilterList(filterList);
-					left_ope_btn.setImageBitmap(BitmapFactory.decodeResource(
-							getResources(), R.drawable.filter_on));
+					List<Job> filterList = updateJobs(filteredList, areasList, domainsList);
+					((JobsFragment) manager.findFragmentByTag("jobs")).setFilterList(filterList);
+					left_ope_btn.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.filter_on));
 				}
 			}
 			break;
@@ -189,8 +183,7 @@ public class MainMenuItemActivity extends Activity {
 		}
 	}
 
-	private List<Job> updateJobs(List<Job> filterList,
-			List<String> areaFilters, List<String> domainFilters) {
+	private List<Job> updateJobs(List<Job> filterList, List<String> areaFilters, List<String> domainFilters) {
 		try {
 			Iterator<Job> iteratorArea = filterList.iterator();
 			while (iteratorArea.hasNext()) {
