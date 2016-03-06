@@ -50,7 +50,8 @@
         <activity
             android:name=".MainMenuItemActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".ForgotPasswordActivity"
@@ -77,6 +78,15 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
+
+        <service android:name="com.lb.jbt.service.ChatService" >
+        </service>
+
+        <receiver android:name=".broadcast.MessageBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="com.lb.jbt.broadcast.MSG_Broadcast" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

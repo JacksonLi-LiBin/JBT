@@ -1,16 +1,7 @@
 package com.lb.jbt;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-
 import com.lb.constants.MobileNetStatus;
+import com.lb.jbt.service.ChatService;
 import com.lb.tools.ReadProperties;
 import com.lb.widgets.CustomAlertDialogWithButtons;
 import com.squareup.okhttp.HttpUrl;
@@ -20,12 +11,41 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.view.KeyEvent;
+import android.view.View;
+
 public class MainMenuActivity extends Activity {
 	private SharedPreferences spf = null;
 	private SharedPreferences.Editor editor = null;
 	private String storedToken = "";
 	private String userId = "";
 	private String fullName = "";
+	private Intent chatServiceIntent;
+	private Intent chatServiceBindIntent;
+	private ChatService.MyBinder myBinder;
+	private ServiceConnection serviceConnection = new ServiceConnection() {
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+		}
+
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			// TODO Auto-generated method stub
+			myBinder = (ChatService.MyBinder) service;
+			myBinder.handleMessage("MainMenuActivity");
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +57,28 @@ public class MainMenuActivity extends Activity {
 		storedToken = spf.getString("userToken", "");
 		fullName = spf.getString("fullName", "");
 		editor = spf.edit();
+
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+
+		chatServiceIntent = new Intent(this, ChatService.class);
+		startService(chatServiceIntent);
+		chatServiceBindIntent = new Intent(this, ChatService.class);
+		bindService(chatServiceBindIntent, serviceConnection, BIND_AUTO_CREATE);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		 unbindService(serviceConnection);
+		 stopService(chatServiceIntent);
+		if (editor != null) {
+			editor.clear();
+		}
 	}
 
 	@Override
@@ -136,6 +178,8 @@ public class MainMenuActivity extends Activity {
 			bundle.putInt("itemType", 2);
 			intent.putExtras(bundle);
 			startActivity(intent);
+			 unbindService(serviceConnection);
+			 stopService(chatServiceIntent);
 			break;
 		case R.id.open_job:
 			bundle.putInt("itemType", 3);
@@ -167,10 +211,8 @@ public class MainMenuActivity extends Activity {
 	}
 
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (editor != null) {
-			editor.clear();
-		}
+	protected void onStop() {
+		super.onStop();
 	}
+
 }
