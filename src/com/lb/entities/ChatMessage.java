@@ -12,6 +12,7 @@ public class ChatMessage implements Serializable {
 	private String userName;
 	private String sendTime;
 	private String msg;
+	private String token;
 
 	public String getUserId() {
 		return userId;
@@ -45,9 +46,19 @@ public class ChatMessage implements Serializable {
 		this.msg = msg;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	@Override
 	public String toString() {
-		return "{userId:" + userId + ", userName:" + userName + ", sendTime:" + sendTime + ", msg:" + msg + "}";
+		return "{userId:" + userId + ", userName:" + userName + ", sendTime:" + sendTime + ", msg:" + msg
+
+				+ ", token:" + token + "}";
 	}
 
 }

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.lb.constants.DateConvert;
 import com.lb.entities.ChatMessage;
 import com.lb.jbt.R;
@@ -20,6 +21,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 	private SharedPreferences.Editor editor = null;
 	private String userId = "";
 	private String fullName = "";
+	private String token = "";
 	private ListView msg_list_view;
 	private EditText msg_type;
 	private Button sendBtn;
@@ -47,6 +50,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 			ChatMessage message = (ChatMessage) msg.obj;
 			msgList.add(message);
 			adapter.notifyDataSetChanged();
+			msg_list_view.setSelection(adapter.getCount() - 1);
 			return false;
 		}
 	});
@@ -57,6 +61,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 		spf = ChatFragment.this.getActivity().getSharedPreferences("jbt", ChatFragment.this.getActivity().MODE_PRIVATE);
 		userId = spf.getString("userId", "");
 		fullName = spf.getString("fullName", "");
+		token = spf.getString("userToken", "");
 		msgList = new ArrayList<ChatMessage>();
 		adapter = new MessageListAdapter(msgList);
 		new Thread(new Runnable() {
@@ -68,14 +73,21 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 					if (socket == null) {
 						socket = new Socket(ReadProperties.read("url", "common_url"),
 								Integer.valueOf(ReadProperties.read("url", "socket_port")));
-						while (socket.isConnected() && !socket.isClosed()) {
-							BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-							System.out.println("-->" + in.readLine());
-							ChatMessage msg = (ChatMessage) JSON.parse(in.readLine());
-							if (!msg.getUserId().equals(userId)) {
+						BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+						while ((socket.isConnected() && !socket.isClosed())) {
+							String str = in.readLine();
+							if (str != null) {
+								JSONObject obj = JSONObject.parseObject(str);
+								ChatMessage msg = new ChatMessage();
+								msg.setUserId(obj.getString("userId"));
+								msg.setUserName(obj.getString("userName"));
+								msg.setSendTime(obj.getString("sendTime"));
+								msg.setMsg(obj.getString("msg"));
 								Message message = new Message();
 								message.obj = msg;
 								updateChatListHandler.sendMessage(message);
+							} else {
+								break;
 							}
 						}
 					}
@@ -119,6 +131,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 									PrintWriter out = new PrintWriter(socket.getOutputStream());
 									message.setUserId(userId);
 									message.setUserName(fullName);
+									message.setToken(token);
 									message.setSendTime(DateConvert.sdf.format(new Date()));
 									message.setMsg(msg_type.getText().toString());
 									out.println(JSON.toJSONString(message));
@@ -188,11 +201,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
 				view = LayoutInflater.from(ChatFragment.this.getActivity()).inflate(R.layout.chat_my_msg, null);
 			} else {
 				view = LayoutInflater.from(ChatFragment.this.getActivity()).inflate(R.layout.chat_others_msg, null);
+				TextView sendName = (TextView) view.findViewById(R.id.send_name);
+				sendName.setText(message.getUserName());
 			}
 			TextView msg = (TextView) view.findViewById(R.id.msg);
 			msg.setText(message.getMsg());
 			return view;
 		}
-
 	}
 }

@@ -6,8 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="50dp"
         android:background="@color/white_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/main_menu_item_padding"
@@ -43,7 +42,7 @@
         android:id="@+id/menuItemFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="1"
         android:background="@color/light_grew_bg"
         android:orientation="vertical" >
     </LinearLayout>
